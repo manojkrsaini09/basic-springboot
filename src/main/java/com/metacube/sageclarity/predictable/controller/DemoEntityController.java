@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class DemoEntityController {
 
@@ -69,6 +71,27 @@ public class DemoEntityController {
         }
     }
 
-
+    @RequestMapping(value = "/demoentity/getByType" , method = RequestMethod.GET, produces = "application/json")
+    public
+    @ResponseBody
+    ResponseObject getDemoEntityByObjectType(@RequestParam(value = "objectType", required = true) String objectTypeStr) {
+        try {
+            List<DemoEntity> entityList = demoEntityService.getByObjectType(objectTypeStr);
+            if(entityList == null){
+                logger.error("No demo entity found for type: " + objectTypeStr);
+                return ResponseObject.getResponse(ExceptionType.NO_DATA_FOUND.getMessage()
+                        , ExceptionType.NO_DATA_FOUND.getCode());
+            }
+            return ResponseObject.getResponse(ResponseHelper.getDemoEntityVOList(entityList));
+        }catch (InvalidParamException e) {
+            logger.error(e.getMessage(), e);
+            return ResponseObject.getResponse(ExceptionType.INVALID_METHOD_PARAM.getMessage()
+                    , ExceptionType.INVALID_METHOD_PARAM.getCode());
+        } catch (ApplicationLevelException e) {
+            logger.error(e.getMessage(), e);
+            return ResponseObject.getResponse(ExceptionType.GENERAL_ERROR.getMessage()
+                    , ExceptionType.GENERAL_ERROR.getCode());
+        }
+    }
 
 }
