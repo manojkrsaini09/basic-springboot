@@ -17,6 +17,6 @@ public class MainController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public void home(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        res.sendRedirect("index.html");
+        res.sendRedirect("/predictable-client/index.html");
     }
 }
