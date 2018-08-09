@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent {
   title = 'Home Page';
   greeting = {};
-  constructor(private http: HttpClient) {
-    http.get('/resource').subscribe(data => this.greeting = data);
-  }
+ // constructor(private http: HttpClient) {
+  //  http.get('/resource').subscribe(data => this.greeting = data);
+ // }
 }
