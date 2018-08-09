@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AppService } from './app.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +11,14 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent {
   title = 'Home Page';
   greeting = {};
- // constructor(private http: HttpClient) {
-  //  http.get('/resource').subscribe(data => this.greeting = data);
- // }
+  constructor(private app: AppService, private http: HttpClient, private router: Router) {
+    this.app.authenticate(undefined, undefined);
+  }
+
+  // logout() {
+  //   this.http.post('logout', {}).finally(() => {
+  //       this.app.authenticated = false;
+  //       this.router.navigateByUrl('/login');
+  //   }).subscribe();
+  // }
 }
