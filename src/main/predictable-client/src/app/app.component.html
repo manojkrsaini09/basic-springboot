@@ -2,9 +2,10 @@
   <h1>
     Welcome {{title}}!
   </h1>
-  <div class="container">
-    <p>Id: <span>{{greeting.id}}</span></p>
-    <p>Message: <span>{{greeting.content}}</span></p>
-  </div>
+</div>
+<a class="nav-link" [routerLink]="['/dashboard']">Home</a>
+<a class="nav-link" [routerLink]="['/loginCom']">Login</a>
+<div class='container'>
+  <router-outlet></router-outlet>
 </div>
 
