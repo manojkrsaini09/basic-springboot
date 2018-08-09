@@ -35,10 +35,10 @@ public class MainController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/", method = RequestMethod.GET)
 	public void home(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		res.sendRedirect("/predictable-client/index.html");
-	}
+	}*/
 
 	@PostConstruct
 	public void init() {
