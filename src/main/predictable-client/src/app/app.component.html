@@ -3,8 +3,20 @@
     Welcome {{title}}!
   </h1>
 </div>
+
+<h1>Greeting</h1>
+<div *ngIf="authenticated()">
+	<p>The ID is {{greeting.id}}</p>
+	<p>The content is {{greeting.content}}</p>
+</div>
+<div *ngIf="!authenticated()">
+	<p>Login to see your greeting</p>
+</div>
+
+
 <a class="nav-link" [routerLink]="['/dashboard']">Home</a>
 <a class="nav-link" [routerLink]="['/login']">Login</a>
+<a class="nav-link" *ngIf="authenticated()" (click)="logout()">Logout</a>
 <div class='container'>
   <router-outlet></router-outlet>
 </div>

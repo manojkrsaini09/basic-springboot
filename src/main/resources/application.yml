@@ -41,3 +41,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
+
+security:
+  user:
+    password: password
+  ignored:
+  - "*.bundle.*"
+logging:
+  level:
+    org.springframework.security: DEBUG

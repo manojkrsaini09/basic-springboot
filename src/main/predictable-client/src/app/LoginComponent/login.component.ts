@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
-
+  pageTitle = 'Login Page';
   credentials = {username: '', password: ''};
 
   constructor(private app: AppService, private http: HttpClient, private router: Router) {

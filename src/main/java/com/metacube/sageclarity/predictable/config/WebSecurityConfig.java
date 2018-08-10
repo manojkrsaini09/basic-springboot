@@ -21,6 +21,7 @@ import com.metacube.sageclarity.predictable.config.handler.CustomLoginFailureHan
 import com.metacube.sageclarity.predictable.config.handler.CustomLoginSuccessfulHandler;
 import com.metacube.sageclarity.predictable.config.handler.CustomLogoutSuccessfulHandler;
 import com.metacube.sageclarity.predictable.service.securityhelpers.CustomeUserDetailService;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -68,9 +69,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
 
   //@formatter:off
-      http
+     /* http
       .csrf().disable()
-          /*.formLogin()
+          *//*.formLogin()
               .loginProcessingUrl("/auth/login")
               .defaultSuccessUrl("/")
             //  .successHandler(loginSuccessfulHandler)
@@ -90,7 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // .authenticationEntryPoint(customAuthenticationEntryPoint)
          // .and()
             .anonymous()
-              .disable();*/
+              .disable();*//*
       .authorizeRequests()
       .antMatchers("/login*").anonymous()
       .anyRequest().authenticated()
@@ -102,7 +103,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .defaultSuccessUrl("/")
      // .failureUrl("/login.html?error=true")
       .and()
-      .logout();
+      .logout();*/
+
+    http
+            .httpBasic().and()
+            .authorizeRequests()
+            .antMatchers("/index.html", "/", "/dashboard", "/login" , "/polyfills.js", "/styles.js" , "/main.js",
+            "/vendor.js" , "/runtime.js", "/logout").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .csrf()
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+
   // @formatter:on
   }
   
