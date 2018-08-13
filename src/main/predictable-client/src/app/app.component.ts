@@ -15,17 +15,9 @@ export class AppComponent {
   greeting = {};
   constructor(private app: AppService, private http: HttpClient, private router: Router) {
     this.app.authenticate(undefined, undefined);
-    http.get('/resource').subscribe(data => this.greeting = data);
   }
 
   authenticated() { return this.app.authenticated; }
-  // logout() {
-  //   this.http.post('/logout', {}).finalize(() => {
-  //       this.app.authenticated = false;
-  //       this.router.navigateByUrl('/login');
-  //   }).subscribe();
-  // }
-
   logout() {
     this.http.post('/logout', {}).pipe(
       tap(data => console.log('All: ' + JSON.stringify(data))),

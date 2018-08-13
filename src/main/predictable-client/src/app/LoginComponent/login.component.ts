@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {
   pageTitle = 'Login Page';
