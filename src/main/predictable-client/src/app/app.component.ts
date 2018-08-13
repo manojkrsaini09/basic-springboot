@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AppService } from './app.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -14,8 +14,8 @@ export class AppComponent {
   title = 'Home Page';
   greeting = {};
   constructor(private app: AppService, private http: HttpClient, private router: Router) {
-    this.app.authenticate(undefined, undefined);
-    http.get('/resource').subscribe(data => this.greeting = data);
+    //this.app.authenticate(undefined, undefined);
+    //http.get('/resource').subscribe(data => this.greeting = data);
   }
 
   authenticated() { return this.app.authenticated; }
