@@ -5,8 +5,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { Injectable } from '@angular/core';
-import { DashboardComponent} from './DashboardComponent/dashboard.component';
 import { LoginComponent } from './LoginComponent/login.component';
+
+import {SummaryPanelComponent} from './summary/summaryPanel.component';
+import {BottomToolbarComponent} from './main/bottombar.component';
+import {MainPanelComponent} from './main/mainpanel.component';
+import {RightPanelComponent} from './main/rightpanel.component';
+import {TitleBarComponent} from './main/titlebar.component';
+import { DashboardComponent } from './main/dashboard.component';
+
 import { AppService } from './app.service';
 import {
   HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS
@@ -30,14 +37,20 @@ export class XhrInterceptor implements HttpInterceptor {
   declarations: [
     AppComponent,
     DashboardComponent,
+    SummaryPanelComponent,
+    BottomToolbarComponent,
+    MainPanelComponent,
+    RightPanelComponent,
+    TitleBarComponent,
+    DashboardComponent,
     LoginComponent
   ],
   imports: [
     RouterModule.forRoot([
       {path: 'login' , component : LoginComponent},
       {path: 'dashboard' , component : DashboardComponent},
-      { path: '' , redirectTo : 'dashboard' , pathMatch : 'full'},
-       { path : '**' , redirectTo : 'dashboard' , pathMatch : 'full'}
+      { path: '' , redirectTo : 'login' , pathMatch : 'full'},
+       { path : '**' , redirectTo : 'login' , pathMatch : 'full'}
      ] , {useHash: true}),
     BrowserModule,
     HttpClientModule,
