@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -10,12 +10,15 @@ import { tap , catchError , finalize } from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Home Page';
   greeting = {};
   constructor(private app: AppService, private http: HttpClient, private router: Router) {
-    //this.app.authenticate(undefined, undefined);
-    //http.get('/resource').subscribe(data => this.greeting = data);
+    
+  }
+
+  ngOnInit(){
+    this.app.authenticate(undefined, undefined);
   }
 
   authenticated() { return this.app.authenticated; }
