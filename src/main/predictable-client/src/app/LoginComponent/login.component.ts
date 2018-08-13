@@ -15,9 +15,12 @@ export class LoginComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(){
-    if(this.app.authenticated){
-      this.router.navigate(['/dashboard']);
-    }
+    this.app.authenticate(undefined, () => {
+      if(this.app.authenticated){
+        this.router.navigate(['/dashboard']);
+      }
+    });
+    
   }
 
   login() {
