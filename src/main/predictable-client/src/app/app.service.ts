@@ -1,32 +1,35 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Router, Resolve } from '@angular/router';
-import { throwError} from 'rxjs';
+import { Router } from '@angular/router';
+import { throwError, Observable} from 'rxjs';
 import { tap , catchError , finalize } from 'rxjs/operators';
 
 @Injectable()
-export class AppService implements Resolve<any> {
+export class AppService {
   authenticated = false;
+  errorMessage = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  resolve(){
-      return this.authenticate(undefined, undefined);
-  }
-  authenticate(credentials, callback) {
+  authenticate (credentials): Observable<any> {
         const headers = new HttpHeaders(credentials ? {
             authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
         } : {});
 
-        this.http.get('user', {headers: headers}).subscribe(response => {
-            if (response['name']) {
-                this.authenticated = true;
-            } else {
-                this.authenticated = false;
-            }
-            return callback && callback();
-        });
 
+        return  this.http.get('user', {headers: headers}).pipe(
+            tap(response => {
+                if ( response['status'] === 'SUCCESS') {
+                    this.authenticated = response['data'].authenticated;
+                    this.errorMessage = response['data'].errorMessage;
+                } else {
+                    this.authenticated = false;
+                    this.errorMessage = response['data'].errorMessage;
+                }
+             }
+            ),
+            catchError(this.handleError)
+          );
     }
 
     logout() {
@@ -41,7 +44,7 @@ export class AppService implements Resolve<any> {
       private handleError(err: HttpErrorResponse) {
         console.log('error in login');
         this.authenticated = false;
-        this.router.navigateByUrl('/login');
+        this.router.navigate(['/login']);
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console
         let errorMessage = '';
