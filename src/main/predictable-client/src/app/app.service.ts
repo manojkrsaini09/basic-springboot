@@ -8,20 +8,12 @@ import { tap , catchError , finalize } from 'rxjs/operators';
 export class AppService implements Resolve<any> {
   authenticated = false;
 
-  constructor(private http: HttpClient, private router: Router) {
-       console.log('in app service constructor');
-       this.authenticate(undefined, () => {
-        console.log('in service  constructor authentcate method');
-         //this.router.navigate(['/dashboard']);
-     });
-  }
+  constructor(private http: HttpClient, private router: Router) {}
 
   resolve(){
       return this.authenticate(undefined, undefined);
   }
   authenticate(credentials, callback) {
-      console.log('authenticate method called with credentials');
-      console.log(credentials);
         const headers = new HttpHeaders(credentials ? {
             authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
         } : {});
