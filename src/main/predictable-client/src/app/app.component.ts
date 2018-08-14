@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AppService } from './app.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -10,15 +10,8 @@ import { tap , catchError , finalize } from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'Home Page';
   greeting = {};
-  constructor(private app: AppService, private http: HttpClient, private router: Router) {
-    console.log('app component constructor called 666');
-  }
-
-  ngOnInit() {
-    console.log('app component ng on in it called');
-    // this.app.authenticate(undefined, undefined);
-  }
+  constructor(private app: AppService, private http: HttpClient, private router: Router) {}
 }
