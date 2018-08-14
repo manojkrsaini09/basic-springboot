@@ -20,6 +20,7 @@ import {
 } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
+import { AuthGuard } from './RouteGuards/auth-guard.service';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -42,7 +43,6 @@ export class XhrInterceptor implements HttpInterceptor {
     MainPanelComponent,
     RightPanelComponent,
     TitleBarComponent,
-    DashboardComponent,
     LoginComponent
   ],
   imports: [

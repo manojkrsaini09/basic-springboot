@@ -108,8 +108,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http
             .httpBasic().and()
             .authorizeRequests()
-            .antMatchers("/index.html", "/", "/dashboard", "/login" , "/polyfills.js", "/styles.js" , "/main.js",
-            "/vendor.js" , "/runtime.js", "/logout").permitAll()
+            .antMatchers("/index.html", "/", "/login" ,
+                  /*  "/polyfills.js", "/styles.js" , "/main.js", "/vendor.js" , "/runtime.js",*/
+                    "/**.js",
+                    "/logout",  "/**.png","/**.jpeg").permitAll()
             .anyRequest().authenticated()
             .and()
             .csrf()
