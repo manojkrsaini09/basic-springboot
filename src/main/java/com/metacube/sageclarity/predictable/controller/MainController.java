@@ -70,9 +70,9 @@ public class MainController {
 	  }
 
 	@RequestMapping("/user")
-	public Principal user(Principal user) {
-
-		return user;
+	public Principal user(HttpServletRequest request) {
+		Principal principal = request.getUserPrincipal();
+		return principal;
 	}
 
 	/*@GetMapping(value = "/{path:[^\\.]*}")
