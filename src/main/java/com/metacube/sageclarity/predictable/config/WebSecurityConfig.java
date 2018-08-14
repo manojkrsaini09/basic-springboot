@@ -116,6 +116,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated()
             .and().exceptionHandling().accessDeniedHandler(customAccessDeniedHandler)
             .authenticationEntryPoint(customAuthenticationEntryPoint).and()
+            .logout().deleteCookies("JSESSIONID")
+            .and()
+            .rememberMe().rememberMeParameter("remember-me").key("uniqueAndSecret")
+            .tokenValiditySeconds(600)
+            .and()
             .csrf()
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 
