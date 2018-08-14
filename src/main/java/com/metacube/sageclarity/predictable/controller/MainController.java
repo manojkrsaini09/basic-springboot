@@ -71,6 +71,7 @@ public class MainController {
 
 	@RequestMapping("/user")
 	public Principal user(Principal user) {
+
 		return user;
 	}
 
