@@ -106,14 +106,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .logout();*/
 
     http
-            .httpBasic().and()
+            .httpBasic().
+            and().formLogin().failureHandler(loginFailureHandler).and()
             .authorizeRequests()
-            .antMatchers("/index.html", "/", "/login" ,
+            .antMatchers("/index.html", "/", "/login" ,"/**user",
                   /*  "/polyfills.js", "/styles.js" , "/main.js", "/vendor.js" , "/runtime.js",*/
                     "/**.js",
                     "/logout",  "/**.png","/**.jpeg","/resources/**","/assets/**").permitAll()
             .anyRequest().authenticated()
-            .and()
+            .and().exceptionHandling().accessDeniedHandler(customAccessDeniedHandler)
+            .authenticationEntryPoint(customAuthenticationEntryPoint).and()
             .csrf()
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 

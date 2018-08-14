@@ -12,6 +12,9 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.metacube.sageclarity.predictable.helper.ResponseHelper;
+import com.metacube.sageclarity.predictable.vo.ResponseObject;
+import com.metacube.sageclarity.predictable.vo.UserLoginVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,9 +73,10 @@ public class MainController {
 	  }
 
 	@RequestMapping("/user")
-	public Principal user(HttpServletRequest request) {
+	public ResponseObject user(HttpServletRequest request) {
 		Principal principal = request.getUserPrincipal();
-		return principal;
+		UserLoginVO userLoginVO = new UserLoginVO(principal);
+		return ResponseObject.getResponse(userLoginVO);
 	}
 
 	/*@GetMapping(value = "/{path:[^\\.]*}")
