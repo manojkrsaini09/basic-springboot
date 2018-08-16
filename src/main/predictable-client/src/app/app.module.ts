@@ -33,25 +33,26 @@ export class XhrInterceptor implements HttpInterceptor {
   }
 }
 
+const appRoutes: Routes=[
+  {path: 'login' , component : LoginComponent},
+  {path: 'dashboard' , component : DashboardComponent},
+  { path: '' , redirectTo : 'login' , pathMatch : 'full'},
+   { path : '**' , redirectTo : 'login' , pathMatch : 'full'}
+ ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
     DashboardComponent,
     SummaryPanelComponent,
     BottomToolbarComponent,
     MainPanelComponent,
     RightPanelComponent,
     TitleBarComponent,
-    LoginComponent
   ],
   imports: [
-    RouterModule.forRoot([
-      {path: 'login' , component : LoginComponent},
-      {path: 'dashboard' , component : DashboardComponent},
-      { path: '' , redirectTo : 'login' , pathMatch : 'full'},
-       { path : '**' , redirectTo : 'login' , pathMatch : 'full'}
-     ] , {useHash: true}),
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
     HttpClientModule,
     FormsModule
