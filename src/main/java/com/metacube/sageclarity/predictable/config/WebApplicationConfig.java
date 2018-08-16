@@ -21,6 +21,8 @@ public WebServerFactoryCustomizer<TomcatServletWebServerFactory> containerCustom
     return container -> {
         container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND,
                 "/notFound"));
+        container.addErrorPages(new ErrorPage(HttpStatus.FORBIDDEN,
+                "/notFound"));
     };
   }
 

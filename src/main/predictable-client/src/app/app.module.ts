@@ -43,13 +43,13 @@ const appRoutes: Routes=[
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
     DashboardComponent,
     SummaryPanelComponent,
     BottomToolbarComponent,
     MainPanelComponent,
     RightPanelComponent,
     TitleBarComponent,
-    LoginComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
