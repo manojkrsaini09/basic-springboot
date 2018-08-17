@@ -4,15 +4,19 @@
 </div> -->
 <div class="center-div">
   <div class="col-md-12">
-    {{errorMessage}}
-<form role="form" (submit)="login()">
-  <div class="form-group">
-    <label for="username">Username:</label>
-    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="credentials.username"/>
+    <div class="alert alert-danger" *ngIf="errorMessage != '' ">{{errorMessage}}</div>
+<form role="form" #form="ngForm"(submit)="login()" nonvalidate>
+  <div class="form-group" [class.has-error]="username.invalid && username.touched">
+    <label for="username" class="control-label">User Name:</label>
+    <input type="text" class="form-control" #username="ngModel" id="username" name="username" [(ngModel)]="credentials.username"
+    required/>
+    <div class="alert alert-danger" *ngIf="username.invalid && username.touched">User Name Required</div>
   </div>
   <div class="form-group">
     <label for="password">Password:</label>
-    <input type="password"  class="form-control" id="password" name="password" [(ngModel)]="credentials.password"/>
+    <input type="password"  class="form-control" #password="ngModel" id="password" name="password" [(ngModel)]="credentials.password"
+    required/>
+    <div class="alert alert-danger" *ngIf="password.invalid && password.touched">Password Required</div>
   </div>
   <div class="form-group">
     <label for="password">Remember Me:</label>

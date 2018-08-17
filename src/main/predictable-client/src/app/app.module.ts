@@ -21,6 +21,7 @@ import {
 
 import { Observable } from 'rxjs/Observable';
 import { AuthGuard } from './RouteGuards/auth-guard.service';
+import { FormComponent } from './FormComponent/form.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -33,9 +34,10 @@ export class XhrInterceptor implements HttpInterceptor {
   }
 }
 
-const appRoutes: Routes=[
+const appRoutes: Routes = [
   {path: 'login' , component : LoginComponent},
   {path: 'dashboard' , component : DashboardComponent},
+  {path: 'form' , component : FormComponent},
   { path: '' , redirectTo : 'login' , pathMatch : 'full'},
    { path : '**' , redirectTo : 'login' , pathMatch : 'full'}
  ];
@@ -50,6 +52,7 @@ const appRoutes: Routes=[
     MainPanelComponent,
     RightPanelComponent,
     TitleBarComponent,
+    FormComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
