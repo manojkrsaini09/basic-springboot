@@ -7,6 +7,8 @@ import com.metacube.sageclarity.predictable.dao.RoleDao;
 import com.metacube.sageclarity.predictable.dao.jpa.JpaRoleDao;
 import com.metacube.sageclarity.predictable.entity.Role;
 
+import java.util.List;
+
 @Component
 public class RoleDaoImpl implements RoleDao{
 
@@ -16,6 +18,16 @@ public class RoleDaoImpl implements RoleDao{
 	@Override
 	public Role saveUserRole(Role role) {
 		return jpaRoleDao.save(role);
+	}
+
+	@Override
+	public List<Role> getAll() {
+		return jpaRoleDao.findAll();
+	}
+
+	@Override
+	public Role getById(Long id){
+		return jpaRoleDao.getOne(id);
 	}
 
 }

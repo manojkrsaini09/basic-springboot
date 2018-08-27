@@ -12,12 +12,14 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.metacube.sageclarity.predictable.enums.UserRoleEnum;
 import com.metacube.sageclarity.predictable.helper.ResponseHelper;
 import com.metacube.sageclarity.predictable.vo.ResponseObject;
 import com.metacube.sageclarity.predictable.vo.UserLoginVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,12 +52,12 @@ public class MainController {
 		try {
 			User user = new User("User", "user", passwordEncoder.encode("password"), true);
 			List<Role> roles1 = new ArrayList<>();
-			roles1.add(new Role("ROLE_USER"));
+			roles1.add(new Role(null,UserRoleEnum.USER));
 			user.setRoles(roles1);
 			userService.saveUser(user);
 			User admin = new User("Admin", "admin", passwordEncoder.encode("password"), true);
 			List<Role> roles2 = new ArrayList<>();
-			roles2.add(new Role("ROLE_ADMIN"));
+			roles2.add(new Role( null,UserRoleEnum.ADMIN));
 			admin.setRoles(roles2);
 			userService.saveUser(admin);
 		} catch (ApplicationLevelException e) {
@@ -72,7 +74,7 @@ public class MainController {
 	    return model;
 	  }
 
-	@RequestMapping("/user")
+	@RequestMapping("/userInfo")
 	public ResponseObject user(HttpServletRequest request) {
 		Principal principal = request.getUserPrincipal();
 		UserLoginVO userLoginVO = new UserLoginVO(principal);

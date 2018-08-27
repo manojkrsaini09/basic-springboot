@@ -1,0 +1,55 @@
+
+<div class="container">
+  <div class="row">
+        <div class="col-md-3"></div>
+        <div>User Edit Page</div>
+  </div>
+  <div class="row">
+        <div class="col-md-3">
+              <button type="button" class="btn btn-outline-primary" 
+              (click)="saveUser()">Save</button>
+        </div> 
+  </div>
+   <div *ngIf="errorMessage">
+           <h3>{{errorMessage}}</h3>
+   </div>
+  
+        <div style="text-align:center">
+          <h1>
+            User Form
+          </h1>
+        </div>
+        <form #userform="ngForm" novalidate>
+           <div class="form-group" [class.has-error]="firstName.invalid && firstName.touched">
+           <label for="firstname" class="control-label">First Name:</label>
+           <input type="text" id="firstname" #firstName="ngModel" class="form-control" name="firstName"
+            [(ngModel)]="userVO.firstName" required/>
+            <div class="alert alert-danger" *ngIf="firstName.invalid && firstName.touched">First Name is Required</div>
+          </div>
+        
+          <div class="form-group">
+              <label for="lastname">Last Name:</label>
+              <input type="text" id="lastname" class="form-control" name="lastName" 
+              [(ngModel)]="userVO.lastName" #lastName="ngModel" />
+           </div>
+           <div class="form-group">
+            <label for="lastname">User Name:</label>
+            <input type="text" id="username" class="form-control" name="userName" required 
+            [(ngModel)]="userVO.userName" #userName="ngModel" />
+            <div class="alert alert-danger" *ngIf="userName.invalid && userName.touched">User Name is Required</div>
+         </div>
+
+           <div class="form-group">
+            <label for="role">User Role</label>
+            <select class="form-control" name="userRole" id="role" 
+            [(ngModel)]="userVO.roles[0]" #userRole="ngModel" required>
+              <option value="">--Select Role--</option>
+              <option *ngFor="let role of userRoles" [ngValue]="role">{{role.role}}</option>
+            </select>
+            <div class="alert alert-danger" *ngIf="userRole.invalid && userRole.touched">User Role is Required</div>
+          </div> 
+        </form>
+        Model: {{userVO | json}}
+        <br>
+        Angular: {{userform.value | json}}
+        </div>

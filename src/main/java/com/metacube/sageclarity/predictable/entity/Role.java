@@ -4,39 +4,41 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+
+import com.metacube.sageclarity.predictable.enums.UserRoleEnum;
+import com.metacube.sageclarity.predictable.vo.RoleVO;
 import org.springframework.security.core.GrantedAuthority;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "role")
 public class Role extends BaseEntity implements GrantedAuthority, Serializable{
 
-   @Column
-   private String role;
-   
-   @JsonIgnore
-   @ManyToMany(mappedBy = "roles")
-   private List<User> users = new ArrayList<>();
-	
-   public Role() { }
-   
-   public Role(String role) {
-	   this.role = role;
-   }
-   
+	@Column
+	@Enumerated(EnumType.STRING)
+	private UserRoleEnum role;
+
+	@JsonIgnore
+	@ManyToMany(mappedBy = "roles")
+	private List<User> users = new ArrayList<>();
+
+	public Role() { }
+
+	public Role(RoleVO roleVO) {
+		if(roleVO.getId() != null){
+			this.setId(roleVO.getId());
+		}
+		this.role= UserRoleEnum.getUserRoleFromStringValue(roleVO.getRole());
+	}
+
+	public Role(Long id,UserRoleEnum role) {
+		this.setId(id);
+		this.role= role;
+	}
+
 	@Override
 	public String getAuthority() {
-		return this.role;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
+		return this.role.getValue();
 	}
 
 	public List<User> getUsers() {
@@ -47,4 +49,11 @@ public class Role extends BaseEntity implements GrantedAuthority, Serializable{
 		this.users = users;
 	}
 
+	public UserRoleEnum getRole() {
+		return role;
+	}
+
+	public void setRole(UserRoleEnum role) {
+		this.role = role;
+	}
 }

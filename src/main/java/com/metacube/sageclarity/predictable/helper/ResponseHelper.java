@@ -3,7 +3,9 @@ package com.metacube.sageclarity.predictable.helper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.metacube.sageclarity.predictable.entity.DemoEntity;
+import com.metacube.sageclarity.predictable.entity.Role;
 import com.metacube.sageclarity.predictable.vo.DemoEntityVO;
+import com.metacube.sageclarity.predictable.vo.RoleVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ObjectUtils;
@@ -23,5 +25,13 @@ public class ResponseHelper {
 			voList.add(new DemoEntityVO(obj));
 		}
 		return voList;
+	}
+
+	public static List<RoleVO> getRoleVOList(List<Role> roles){
+		List<RoleVO> roleVOS = new ArrayList<>();
+		for(Role role:roles){
+			roleVOS.add(new RoleVO(role));
+		}
+		return roleVOS;
 	}
 }

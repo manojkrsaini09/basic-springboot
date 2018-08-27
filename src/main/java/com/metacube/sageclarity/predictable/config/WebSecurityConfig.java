@@ -109,7 +109,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .httpBasic().
             and().formLogin().failureHandler(loginFailureHandler).and()
             .authorizeRequests()
-            .antMatchers("/index.html", "/", "/login" ,"/**user",
+            .antMatchers("/index.html", "/", "/login" ,"/userInfo",
                   /*  "/polyfills.js", "/styles.js" , "/main.js", "/vendor.js" , "/runtime.js",*/
                     "/**.js",
                     "/logout",  "/**.png","/**.jpeg","/resources/**","/assets/**").permitAll()

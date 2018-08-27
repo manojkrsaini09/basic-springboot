@@ -17,7 +17,7 @@ export class AppService {
         } : {});
 
 
-        return  this.http.get('user', {headers: headers}).pipe(
+        return  this.http.get('userInfo', {headers: headers}).pipe(
             tap(response => {
                 if ( response['status'] === 'SUCCESS') {
                     this.authenticated = response['data'].authenticated;

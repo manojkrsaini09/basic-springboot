@@ -15,20 +15,18 @@ export class LoginComponent implements OnInit {
   constructor(private app: AppService, private http: HttpClient, private router: Router) {
   }
 
-  ngOnInit(){
-      if(this.app.authenticated){
+  ngOnInit() {
+      if (this.app.authenticated) {
         this.router.navigate(['/dashboard']);
-      }
-      else
-      {
+      } else {
         this.app.authenticate(undefined).subscribe(
           data => {
             console.log('data');
-            if(this.app.authenticated){
+            if (this.app.authenticated) {
                 this.router.navigate(['/dashboard']);
             }
            },
-          //error => this.errorMessage = <any> error
+          // error => this.errorMessage = <any> error
            error =>  this.errorMessage  = 'Invalid Credentials'
        );
       }
@@ -37,13 +35,13 @@ export class LoginComponent implements OnInit {
   login() {
     this.app.authenticate(this.credentials).subscribe(
     data => {
-      if(this.app.authenticated){
+      if (this.app.authenticated) {
            this.router.navigate(['/dashboard']);
-          }else{
+          } else {
              this.errorMessage = 'Invalid Credentials';
           }
      },
-     //error => this.errorMessage = <any> error
+     // error => this.errorMessage = <any> error
      error =>  this.errorMessage  = 'Invalid Credentials'
   );
   }

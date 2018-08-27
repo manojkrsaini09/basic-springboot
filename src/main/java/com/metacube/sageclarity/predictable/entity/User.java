@@ -1,5 +1,12 @@
 package com.metacube.sageclarity.predictable.entity;
 
+import com.metacube.sageclarity.predictable.enums.UserRoleEnum;
+import com.metacube.sageclarity.predictable.vo.RoleVO;
+import com.metacube.sageclarity.predictable.vo.UserVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,71 +23,99 @@ import javax.persistence.ManyToMany;
 @Entity(name = "user")
 public class User extends BaseEntity implements Serializable{
 
-	 @Column
-	  private String name;
+	@Column
+	private String name;
 
-	  @Column(name="username",unique = true, nullable = false)
-	  private String username;
+	@Column
+	private String lastName;
 
-	  @Column
-	  private String password;
+	@Column(name="username",unique = true, nullable = false)
+	private String username;
 
-	  @Column
-	  private boolean enabled;
+	@Column
+	private String password;
 
-	  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	  @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-	      inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-	  private List<Role> roles = new ArrayList<>();
+	@Column
+	private boolean enabled;
 
-	  public User() {}
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	private List<Role> roles = new ArrayList<>();
 
-	  public User(String name, String userName, String password, boolean enabled) {
-	    super();
-	    this.name = name;
-	    this.username = userName;
-	    this.password = password;
-	    this.enabled = enabled;
-	  }
+	public User() {}
 
-	  public String getName() {
-	    return name;
-	  }
+	public User(String name, String userName, String password, boolean enabled) {
+		super();
+		this.name = name;
+		this.username = userName;
+		this.password = password;
+		this.enabled = enabled;
+	}
 
-	  public void setName(String name) {
-	    this.name = name;
-	  }
+	public User(UserVO userVO){
+		PasswordEncoder enc = new BCryptPasswordEncoder();
+		if(userVO.getId()!=null){
+			super.setId(userVO.getId());
+		}
+		this.name = userVO.getFirstName();
+		this.lastName = userVO.getLastName();
+		this.username = userVO.getUserName();
+		this.enabled = true;
+		this.password = enc.encode("user");
+		if(userVO.getRoles()!=null){
+			for(RoleVO role:userVO.getRoles()){
+				this.roles.add(new Role(role));
+			}
 
-	  public String getPassword() {
-	    return password;
-	  }
+		}
+	}
 
-	  public void setPassword(String password) {
-	    this.password = password;
-	  }
+	public String getName() {
+		return name;
+	}
 
-	  public String getUsername() {
-	    return username;
-	  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-	  public void setUsername(String username) {
-	    this.username = username;
-	  }
+	public String getPassword() {
+		return password;
+	}
 
-	  public boolean isEnabled() {
-	    return enabled;
-	  }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-	  public void setEnabled(boolean enabled) {
-	    this.enabled = enabled;
-	  }
+	public String getUsername() {
+		return username;
+	}
 
-	  public List<Role> getRoles() {
-	    return roles;
-	  }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-	  public void setRoles(List<Role> roles) {
-	    this.roles = roles;
-	  }
+	public boolean isEnabled() {
+		return enabled;
+	}
 
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 }

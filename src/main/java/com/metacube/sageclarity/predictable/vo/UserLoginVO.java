@@ -1,5 +1,7 @@
 package com.metacube.sageclarity.predictable.vo;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.io.Serializable;
 import java.security.Principal;
 
@@ -7,9 +9,13 @@ public class UserLoginVO implements Serializable {
     private Boolean isAuthenticated = false;
     private String userName;
     private String errorMessage;
-    public UserLoginVO(Principal principle){
-        if(principle != null){
+    public UserLoginVO(Principal principal){
+        if(principal != null){
+            this.userName = principal.getName();
             this.isAuthenticated = true;
+            //UserDetails userDetails = (UserDetails)principal;
+            //this.userName = userDetails.getUsername();
+            //this.isAuthenticated = userDetails.;
         }else{
             this.isAuthenticated = false;
             this.errorMessage = "Invalid Credentials";
