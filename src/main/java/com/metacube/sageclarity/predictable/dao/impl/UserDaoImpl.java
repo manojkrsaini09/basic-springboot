@@ -7,6 +7,8 @@ import com.metacube.sageclarity.predictable.dao.UserDao;
 import com.metacube.sageclarity.predictable.dao.jpa.JpaUserDao;
 import com.metacube.sageclarity.predictable.entity.User;
 
+import java.util.List;
+
 @Component
 public class UserDaoImpl implements UserDao{
 
@@ -21,5 +23,10 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public User getUserByUserName(String userName) {
 		return jpaUserDao.findByUsername(userName);
+	}
+
+	@Override
+	public List<User> getAll() {
+		return jpaUserDao.findAll();
 	}
 }

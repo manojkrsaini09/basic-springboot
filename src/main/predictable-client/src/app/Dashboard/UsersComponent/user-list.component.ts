@@ -11,7 +11,7 @@ export class UserListComponent implements OnInit {
     users: User[];
     userRoles: Role[];
     errorMessage: string;
-    editableMode: false;
+    editableMode = false;
     selectedUser: User;
     ngOnInit(): void {
         this.getUsers();
@@ -42,6 +42,8 @@ export class UserListComponent implements OnInit {
                console.log(response);
                if (response['status'] === 'SUCCESS') {
                 this.userRoles = response['data'];
+               } else {
+                    // this.errorMessage = response.exception.message;
                }
             },
             error => this.errorMessage = 'Error in call'
@@ -49,6 +51,31 @@ export class UserListComponent implements OnInit {
     }
 
     addNewUser(): void {
+        this.selectedUser = new User();
+        this.selectedUser.roles = [];
+        this.selectedUser.enabled = true;
+        this.editableMode = true;
+    }
 
+    saveUser(): void {
+        this.userService.saveUser(this.selectedUser).subscribe(
+            response => {
+               console.log(response);
+               if (response['status'] === 'SUCCESS') {
+                this.users.push(response['data']);
+               } else {
+                   // this.errorMessage = response.exception.message;
+                   this.errorMessage = 'Server Error';
+               }
+            },
+            error => this.errorMessage = 'Error in call'
+        );
+        this.selectedUser = new User();
+        this.editableMode = false;
+    }
+
+    cancel(): void {
+        this.selectedUser = new User();
+        this.editableMode = false;
     }
 }

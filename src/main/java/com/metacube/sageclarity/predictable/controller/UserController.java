@@ -49,6 +49,23 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/user", produces = "application/json",method = RequestMethod.GET)
+    public
+    @ResponseBody
+    ResponseObject getAllUsers(){
+
+        try {
+            List<User> users = null;
+            users = userService.getAllUsers();
+            return ResponseObject.getResponse(ResponseHelper.getUserVOList(users));
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ResponseObject.getResponse(ExceptionType.GENERAL_ERROR.getMessage()
+                    , ExceptionType.GENERAL_ERROR.getCode());
+        }
+    }
+
+
     @RequestMapping(value = "/role", produces = "application/json" ,method = RequestMethod.GET)
     public
     @ResponseBody

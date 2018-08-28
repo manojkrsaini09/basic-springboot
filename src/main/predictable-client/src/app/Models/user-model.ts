@@ -6,6 +6,8 @@ export class User {
     firstName: string;
     lastName: string;
     userName: string;
+    enabled: boolean;
     roles: Role[];
+    email: string;
     constructor () { }
 }

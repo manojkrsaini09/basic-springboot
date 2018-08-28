@@ -67,4 +67,16 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 
+	@Override
+	public List<User> getAllUsers() throws ApplicationLevelException {
+		try {
+			List<User> users = userDao.getAll();
+			return users;
+		}catch (Exception e){
+			String message = "Db exception while fetching all users " + e.getMessage();
+			logger.error(message, e);
+			throw new ApplicationLevelException(message, e);
+		}
+	}
+
 }

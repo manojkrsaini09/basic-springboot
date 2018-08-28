@@ -13,12 +13,17 @@ public class UserVO {
     private String lastName;
     private String userName;
     private List<RoleVO> roles;
+    private Long companyId;
+    private Boolean enabled;
+    private String emailId;
     public UserVO(){}
     public UserVO(User user){
         this.id = user.getId();
         this.firstName = user.getName();
         this.lastName = user.getLastName();
         this.userName = user.getUsername();
+        this.enabled = user.isEnabled();
+        this.emailId = user.getEmailId();
         if(user.getRoles() != null && user.getRoles().size() > 0){
             this.roles = new ArrayList<>();
             for(Role role:user.getRoles()){
@@ -65,5 +70,29 @@ public class UserVO {
 
     public void setRoles(List<RoleVO> roles) {
         this.roles = roles;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
 }

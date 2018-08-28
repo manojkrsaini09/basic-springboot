@@ -38,6 +38,9 @@ public class User extends BaseEntity implements Serializable{
 	@Column
 	private boolean enabled;
 
+	@Column
+    private String emailId;
+
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
@@ -57,12 +60,14 @@ public class User extends BaseEntity implements Serializable{
 		PasswordEncoder enc = new BCryptPasswordEncoder();
 		if(userVO.getId()!=null){
 			super.setId(userVO.getId());
+		}else{
+			this.password = enc.encode("user");
 		}
 		this.name = userVO.getFirstName();
 		this.lastName = userVO.getLastName();
 		this.username = userVO.getUserName();
-		this.enabled = true;
-		this.password = enc.encode("user");
+		this.enabled = userVO.getEnabled();
+		this.emailId = userVO.getEmailId();
 		if(userVO.getRoles()!=null){
 			for(RoleVO role:userVO.getRoles()){
 				this.roles.add(new Role(role));
@@ -118,4 +123,12 @@ public class User extends BaseEntity implements Serializable{
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
 }
