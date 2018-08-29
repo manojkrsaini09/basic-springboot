@@ -31,6 +31,7 @@ import { ConfigurationComponent } from './ConfigurationComponent/configuration.c
 import { LeftMenuComponent } from './ConfigurationComponent/LeftMenu/left-menu.component';
 import { ContentPanelComponent } from './ConfigurationComponent/RightPanel/content-panel.component';
 import { ProfileComponent } from './ProfileComponent/profile.component';
+import { AuthInterceptor } from './HttpInterceptor/auth.interceptor';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -116,7 +117,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule
   ],
-  providers: [AppService, UserService, RoleService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+  providers: [AppService, UserService, RoleService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

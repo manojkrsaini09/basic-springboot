@@ -16,13 +16,26 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-      if (this.app.authenticated) {
-        this.router.navigate(['/dashboard']);
-      } else {
+      // if (this.app.authenticated) {
+      //   this.router.navigate(['/dashboard']);
+      // } else {
+      //   this.app.authenticate(undefined).subscribe(
+      //     data => {
+      //       console.log('data');
+      //       if (this.app.authenticated) {
+      //           this.router.navigate(['/dashboard']);
+      //       }
+      //      },
+      //     // error => this.errorMessage = <any> error
+      //      error =>  this.errorMessage  = 'Invalid Credentials'
+      //  );
+      // }
+      if (!this.app.authenticated) {
         this.app.authenticate(undefined).subscribe(
           data => {
             console.log('data');
             if (this.app.authenticated) {
+              console.log('navigate to dashboard');
                 this.router.navigate(['/dashboard']);
             }
            },
