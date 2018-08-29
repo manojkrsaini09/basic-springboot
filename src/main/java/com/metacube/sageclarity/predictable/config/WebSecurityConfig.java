@@ -97,6 +97,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .anyRequest().authenticated()
       .and()
       .formLogin()
+      .loginPage("/loginForm.html")
+              .permitAll()
       .successHandler(loginSuccessfulHandler)
       .failureHandler(loginFailureHandler)
       //.loginPage("/login.html")
