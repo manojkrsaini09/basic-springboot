@@ -1,0 +1,77 @@
+<div class="wrapper">
+    <app-left-menu [toggleMenu]="sideMenuClicked"></app-left-menu>
+        <!-- Sidebar  -->
+        <!-- <nav id="sidebar" [ngClass]="{'active': sideMenuClicked }">
+            <div class="sidebar-header">
+                <h3>Predictable</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p>Configurations</p>
+                <!-- <li>
+                    <a (click)=" homeSubmenu = !homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                    <ul class="collapse list-unstyled" [style.display]="homeSubmenu?'inherit':'none'">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a [routerLink]="['configuration','/company']">Company</a>
+                </li>
+               
+                <li>
+                    <a [routerLink]="['configuration','/users']">User</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a [routerLink]="['configuration']" class="download">Button1 </a>
+                </li>
+                <li>
+                    <a [routerLink]="['configuration']" class="article">Button2</a>
+                </li>
+            </ul>
+        </nav> -->
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" (click)="sideMenuClick()" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>Toggle Sidebar</span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" (click)="logout()">Logout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" [routerLink]="['/configuration','profile']"
+                                routerLinkActive="active" [routerLinkActiveOptions]="{ exact : true}">Profile</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <router-outlet></router-outlet>
+
+             </div>
+    </div>

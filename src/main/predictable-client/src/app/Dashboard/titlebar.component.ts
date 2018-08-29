@@ -9,7 +9,7 @@ import { AppService } from '../app.service';
     selector: 'title-bar',
     templateUrl: './titlebar.component.html'
 })
-export class TitleBarComponent{
+export class TitleBarComponent {
     constructor(private app: AppService, private http: HttpClient, private router: Router) {
     }
 

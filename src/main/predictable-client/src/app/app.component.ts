@@ -12,6 +12,5 @@ import { tap , catchError , finalize } from 'rxjs/operators';
 })
 export class AppComponent {
   title = 'Home Page';
-  greeting = {};
   constructor(private app: AppService, private http: HttpClient, private router: Router) {}
 }

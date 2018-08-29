@@ -27,6 +27,10 @@ import { UserEditComponent } from './Dashboard/UsersComponent/user-edit.componen
 import { UserService } from './Dashboard/UsersComponent/user.service';
 import { RoleService } from './Dashboard/RolesComponent/role.service';
 import { RoleComponent } from './Dashboard/RolesComponent/role.component';
+import { ConfigurationComponent } from './ConfigurationComponent/configuration.component';
+import { LeftMenuComponent } from './ConfigurationComponent/LeftMenu/left-menu.component';
+import { ContentPanelComponent } from './ConfigurationComponent/RightPanel/content-panel.component';
+import { ProfileComponent } from './ProfileComponent/profile.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -61,6 +65,27 @@ const appRoutes: Routes = [
       }
     ]
     },
+    {path: 'configuration',
+    component: ConfigurationComponent,
+    children : [
+              {
+              path : '',
+              component : ProfileComponent
+              },
+              {
+                path : 'user',
+                component : UserListComponent
+              },
+              {
+                path : 'company',
+                component : UserEditComponent
+              },
+              {
+                path: 'profile',
+                redirectTo: ''
+              }
+        ]
+    },
   {path: 'form' , component : FormComponent},
   { path: '' , redirectTo : 'login' , pathMatch : 'full'},
    { path : '**' , redirectTo : 'login' , pathMatch : 'full'}
@@ -79,7 +104,11 @@ const appRoutes: Routes = [
     FormComponent,
     UserListComponent,
     UserEditComponent,
-    RoleComponent
+    RoleComponent,
+    ConfigurationComponent,
+    LeftMenuComponent,
+    ContentPanelComponent,
+    ProfileComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -87,7 +116,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule
   ],
-  providers: [AppService, UserService, RoleService,{ provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+  providers: [AppService, UserService, RoleService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

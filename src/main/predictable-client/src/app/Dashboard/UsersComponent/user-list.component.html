@@ -1,9 +1,6 @@
 
 <div class="container">
-<div class="row">
-        <div class="col-md-3"></div>
-      <div>User List Page</div>
-</div>
+
 <div class="row">
       <div class="col-md-3">
             <button type="button" class="btn btn-outline-primary" 
@@ -12,7 +9,7 @@
 </div>
 <div class="row" *ngIf="editableMode">
       <div class="col-md-12">
-            New User
+           <h2> New User </h2>
       </div>
       <div class="col-md-12">
                   <form #userform="ngForm" novalidate>
@@ -84,6 +81,10 @@
                            </form>
       </div>
 </div>
+<div class="row">
+            <h2>Users</h2>
+      </div>
+
 <div class="row">
       
       <div class="col-md-12">

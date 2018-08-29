@@ -1,0 +1,42 @@
+<nav id="sidebar" [ngClass]="{'active': toggleMenu }">
+    <div class="sidebar-header">
+        <h3>Predictable</h3>
+    </div>
+
+    <ul class="list-unstyled components">
+        <p>Configurations</p>
+        <!-- <li>
+            <a (click)=" homeSubmenu = !homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+            <ul class="collapse list-unstyled" [style.display]="homeSubmenu?'inherit':'none'">
+                <li>
+                    <a href="#">Home 1</a>
+                </li>
+                <li>
+                    <a href="#">Home 2</a>
+                </li>
+                <li>
+                    <a href="#">Home 3</a>
+                </li>
+            </ul>
+        </li> -->
+        <li>
+            <a routerLinkActive="active" [routerLinkActiveOptions]="{ exact : true}" [routerLink]="['/configuration','company']">Company</a>
+        </li>
+       
+        <li>
+            <a routerLinkActive="active" [routerLinkActiveOptions]="{ exact : true}" [routerLink]="['/configuration','user']">User</a>
+        </li>
+        <li>
+            <a href="#">Contact</a>
+        </li>
+    </ul>
+
+    <ul class="list-unstyled CTAs">
+        <li>
+            <a routerLinkActive="active" [routerLinkActiveOptions]="{ exact : true}" [routerLink]="['/configuration']" class="download">Button1 </a>
+        </li>
+        <li>
+            <a routerLinkActive="active" [routerLinkActiveOptions]="{ exact : true}" [routerLink]="['/configuration']" class="article">Button2</a>
+        </li>
+    </ul>
+</nav>
