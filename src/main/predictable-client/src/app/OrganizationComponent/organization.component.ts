@@ -3,7 +3,7 @@ import { Organization } from '../Models/organization-model';
 import { OrganizationService } from './organization.service';
 
 @Component({
-    templateUrl: './organization.component.ts'
+    templateUrl: './organization.component.html'
 })
 export class OrganizationComponent implements OnInit {
     organizations: Organization[];
