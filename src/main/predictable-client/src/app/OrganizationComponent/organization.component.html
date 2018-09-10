@@ -1,0 +1,80 @@
+<div class="container">
+
+        <div class="row">
+              <div class="col-md-3">
+                    <button type="button" class="btn btn-outline-primary" 
+                     (click)="addNewOrganization()" *ngIf="!editableMode">Create</button>
+              </div> 
+        </div>
+        <div class="row" *ngIf="editableMode">
+              <div class="col-md-12">
+                   <h2> New Organization </h2>
+              </div>
+              <div class="col-md-12">
+                          <form #organizationform="ngForm" novalidate>
+                                <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                      <label for="name" class="control-label">Name:</label>
+                                      <input type="text" id="name" #name="ngModel" class="form-control" name="name"
+                                       [(ngModel)]="selectedOrganization.name" required/>
+                                       <div class="invalid-feedback d-block" *ngIf="name.invalid && name.touched">
+                                            Name is Required</div>
+                                     </div>
+                                  
+                                </div>
+                                <div class="form-row">
+                                        <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                <label for="location" class="control-label">Location:</label>
+                                                <input type="text" id="location" #location="ngModel" class="form-control" name="location"
+                                                 [(ngModel)]="selectedOrganization.location" required/>
+                                                 <div class="invalid-feedback d-block" *ngIf="location.invalid && location.touched">
+                                                        Location is Required</div>
+                                               </div>
+                                 </div>
+                                 
+                                </div>
+                                     <div class="col-md-12">
+                                            <button type="button" class="btn btn-outline-primary" 
+                                            (click)="saveOrganization()" [disabled]="organizationform.invalid">Save</button>
+        
+                                            <button type="button" class="btn btn-outline-primary" 
+                                            (click)="cancel()">Cancel</button>
+                                     </div>
+                                   </form>
+              </div>
+        </div>
+        <div class="row">
+                    <h2>Organizations</h2>
+              </div>
+        
+        <div class="row">
+              
+              <div class="col-md-12">
+                    <table class="table table-hover">
+                                <thead class="thead-dark">
+                                            <tr>
+                                                        <th colspan="5">
+                                                                Organizations
+                                                        </th>
+                                                  </tr>
+                                </thead>
+                                <thead>
+                                      
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Location</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let org of organizations; let i = index">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>{{org.name}}</td>
+                                    <td>{{org.Location}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                          </div>
+        </div>
+        

@@ -32,6 +32,7 @@ import { LeftMenuComponent } from './ConfigurationComponent/LeftMenu/left-menu.c
 import { ContentPanelComponent } from './ConfigurationComponent/RightPanel/content-panel.component';
 import { ProfileComponent } from './ProfileComponent/profile.component';
 import { AuthInterceptor } from './HttpInterceptor/auth.interceptor';
+import { OrganizationComponent } from './OrganizationComponent/organization.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -78,8 +79,8 @@ const appRoutes: Routes = [
                 component : UserListComponent
               },
               {
-                path : 'company',
-                component : UserEditComponent
+                path : 'organization',
+                component : OrganizationComponent
               },
               {
                 path: 'profile',
@@ -109,7 +110,8 @@ const appRoutes: Routes = [
     ConfigurationComponent,
     LeftMenuComponent,
     ContentPanelComponent,
-    ProfileComponent
+    ProfileComponent,
+    OrganizationComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
