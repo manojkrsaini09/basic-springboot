@@ -38,13 +38,17 @@ public class UserServiceImpl implements UserService{
 			List<Role> roles = user.getRoles();
 			List<Role> tempRoles = new ArrayList<>();
 			for(Role role:roles){
-				tempRoles.add(roleDao.getById(role.getId()));
+				if(role.getId()!=null){
+					tempRoles.add(roleDao.getById(role.getId()));
+				}else{
+					tempRoles.add(role);
+				}
 			}
 			user.getRoles().clear();
 			user.setRoles(tempRoles);
 			return userDao.saveUser(user);
 		}catch (Exception e){
-			String message = "Db exception while creating Demo entity. "+ e.getMessage() ;
+			String message = "Db exception while creating User. "+ e.getMessage() ;
 			logger.error(message, e);
 			throw new ApplicationLevelException(message, e);
 		}
