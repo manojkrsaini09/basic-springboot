@@ -391,4 +391,31 @@ html,body {
   background-color: #ccc;
   border-radius: 3px;
 }
+
+.btn-test
+{
+	background-color:yellow !important;
+}
+
+/* user-list custom CSS */
+
+.user-list .row {
+   margin-bottom: 1rem;
+}
+.button-row button {
+	margin: 0 0.5rem;
+}
+.user-list .custom-control-label {
+	left:26px;
+}
+.user-list h3 {
+	    border-bottom: 1px solid #1360b3;
+    padding-bottom: 5px;
+    margin-bottom: 1.5rem;
+    color: #1360b3;
+}
+.user-list .table thead th {
+	background-color: #007bff;
+	color: #fff;
+}
   

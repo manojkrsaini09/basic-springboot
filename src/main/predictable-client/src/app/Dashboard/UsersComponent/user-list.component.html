@@ -1,15 +1,15 @@
 
-<div class="container">
+<div class="container user-list">
 
 <div class="row">
-      <div class="col-md-3">
-            <button type="button" class="btn btn-outline-primary" 
-             (click)="addNewUser()" *ngIf="!editableMode">Create</button>
+      <div class="col-md-12">
+            <button type="button" class="btn btn-primary float-right" 
+             (click)="addNewUser()" *ngIf="!editableMode">Add User</button>
       </div> 
 </div>
 <div class="row" *ngIf="editableMode">
       <div class="col-md-12">
-           <h2> New User </h2>
+           <h3> New User </h3>
       </div>
       <div class="col-md-12">
                   <form #userform="ngForm" novalidate>
@@ -38,21 +38,31 @@
                                           </select>
                                           <div class="invalid-feedback d-block" *ngIf="userRole.invalid && userRole.touched">User Role is Required</div>
                               </div>
-                              <div class="custom-control custom-checkbox col-md-6">
-                                          <input type="checkbox" class="custom-control-input" [(ngModel)]="selectedUser.enabled" id="active" 
-                                          #active="ngModel" name="active" checked="checked">
-                                          <label class="custom-control-label" for="active">Active</label>
-                              </div>
-                         </div>
-                         <div class="form-row">     
                               <div class="form-group col-md-6">
                                <label for="lastname">User Name:</label>
                                <input type="text" id="username" class="form-control" name="userName" required 
                                [(ngModel)]="selectedUser.userName" #userName="ngModel"/>
                                <div class="invalid-feedback d-block" *ngIf="userName.invalid && userName.touched">User Name is Required</div>
                             </div>
-                                    <div class="form-group col-md-6">
-                                                <!-- <label for="organization">Organization</label>
+                             
+                         </div>
+                         <div class="form-row">     
+                              
+                            
+                             <div class="form-group col-md-6">
+                                     <label for="email">E-mail:</label>
+                                     <input type="text" id="email" class="form-control" name="email" required 
+                                     [(ngModel)]="selectedUser.email" #email="ngModel"/>
+                                     <div class="invalid-feedback d-block" *ngIf="email.invalid && email.touched">Email Id is Required</div>
+                                  </div>
+                                  
+                                   <div class="custom-control custom-checkbox col-md-6 d-flex align-items-center">
+                                          <input type="checkbox" class="custom-control-input" [(ngModel)]="selectedUser.enabled" id="active" 
+                                          #active="ngModel" name="active" checked="checked">
+                                          <label class="custom-control-label" for="active">Active</label>
+                              </div>
+                                   <!-- <div class="form-group col-md-6">
+                                                 <label for="organization">Organization</label>
                                                 <select class="form-control" name="organization" id="organization" 
                                                 [(ngModel)]="selectedUser.organization" #organization="ngModel" required>
                                                   <option value="">--Select Organization--</option>
@@ -60,42 +70,27 @@
                                                 </select>
                                                 <div class="invalid-feedback d-block" *ngIf="organization.invalid && organization.touched">
                                                       Organization is Required
-                                     </div> -->
-                                    </div>
+                                     </div> 
+                                    </div>-->
                          </div>
-                         <div class="form-row">     
-                                    <div class="form-group col-md-6">
-                                     <label for="email">E-mail:</label>
-                                     <input type="text" id="email" class="form-control" name="email" required 
-                                     [(ngModel)]="selectedUser.email" #email="ngModel"/>
-                                     <div class="invalid-feedback d-block" *ngIf="email.invalid && email.touched">Email Id is Required</div>
-                                  </div>
-                        </div>
-                             <div class="col-md-12">
-                                    <button type="button" class="btn btn-outline-primary" 
+                         
+                             <div class="col-md-12 text-right button-row">
+                                    <button type="button" class="btn btn-primary" 
                                     (click)="saveUser()" [disabled]="userform.invalid">Save</button>
 
-                                    <button type="button" class="btn btn-outline-primary" 
+                                    <button type="button" class="btn btn-secondary" 
                                     (click)="cancel()">Cancel</button>
                              </div>
                            </form>
       </div>
 </div>
-<div class="row">
-            <h2>Users</h2>
-      </div>
+
 
 <div class="row">
       
       <div class="col-md-12">
             <table class="table table-hover">
-                        <thead class="thead-dark">
-                                    <tr>
-                                                <th colspan="5">
-                                                       Users
-                                                </th>
-                                          </tr>
-                        </thead>
+                        
                         <thead>
                               
                           <tr>
