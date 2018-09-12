@@ -23,7 +23,6 @@
                                   
                                 </div>
                                 <div class="form-row">
-                                        <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                 <label for="location" class="control-label">Location:</label>
                                                 <input type="text" id="location" #location="ngModel" class="form-control" name="location"
@@ -32,8 +31,6 @@
                                                         Location is Required</div>
                                                </div>
                                  </div>
-                                 
-                                </div>
                                      <div class="col-md-12">
                                             <button type="button" class="btn btn-outline-primary" 
                                             (click)="saveOrganization()" [disabled]="organizationform.invalid">Save</button>
@@ -71,7 +68,7 @@
                                   <tr *ngFor="let org of organizations; let i = index">
                                     <th scope="row">{{i+1}}</th>
                                     <td>{{org.name}}</td>
-                                    <td>{{org.Location}}</td>
+                                    <td>{{org.location}}</td>
                                   </tr>
                                 </tbody>
                               </table>

@@ -14,7 +14,7 @@ export class OrganizationService {
     }
 
     getOrganizations(): Observable<any> {
-        return this.http.get('organization').pipe(
+        return this.http.get('/company/all').pipe(
             tap( response => {
                 console.log(response);
                 if ( response['status'] === 'SUCCESS') {
@@ -27,7 +27,7 @@ export class OrganizationService {
         );
     }
     saveOrganization(organization: Organization): Observable<any> {
-        return this.http.post('organization/create', organization).pipe(
+        return this.http.post('company/create', organization).pipe(
             tap( response => {
                 console.log(response);
                 if ( response['status'] === 'SUCCESS') {
@@ -39,6 +39,26 @@ export class OrganizationService {
             catchError(this.handleError)
         );
     }
+
+    getOrganization(id): Observable<any> {
+        return this.http.get('/company',
+        {
+            params : {
+                id : id
+            }
+        }).pipe(
+            tap( response => {
+                console.log(response);
+                if ( response['status'] === 'SUCCESS') {
+                    this.errorMessage = response['data'].errorMessage;
+                } else {
+                    this.errorMessage = response['data'].errorMessage;
+                }
+            }),
+            catchError(this.handleError)
+        );
+    }
+
     private handleError(err: HttpErrorResponse) {
         console.log('error in organization service');
         let errorMessage = '';

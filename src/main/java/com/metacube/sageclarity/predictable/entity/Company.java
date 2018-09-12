@@ -11,6 +11,9 @@ public class Company extends BaseEntity implements Serializable {
     @Column
     private String name;
 
+    @Column
+    private String location;
+
     public Company() {
     }
 
@@ -20,6 +23,7 @@ public class Company extends BaseEntity implements Serializable {
         }
 
         this.name = companyVO.getName();
+        this.location = companyVO.getLocation();
     }
 
     public String getName() {
@@ -28,5 +32,13 @@ public class Company extends BaseEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

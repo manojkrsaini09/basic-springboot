@@ -34,6 +34,7 @@ import { ContentPanelComponent } from './ConfigurationComponent/RightPanel/conte
 import { ProfileComponent } from './ProfileComponent/profile.component';
 import { AuthInterceptor } from './HttpInterceptor/auth.interceptor';
 import { OrganizationComponent } from './OrganizationComponent/organization.component';
+import { OrganizationService } from './OrganizationComponent/organization.service';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -80,7 +81,7 @@ const appRoutes: Routes = [
                 component : UserListComponent
               },
               {
-                path : 'organization',
+                path : 'company',
                 component : OrganizationComponent
               },
               {
@@ -121,7 +122,8 @@ const appRoutes: Routes = [
     FormsModule,
     AngularFontAwesomeModule
   ],
-  providers: [AppService, UserService, RoleService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
+  providers: [AppService, UserService, RoleService, OrganizationService,
+    { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })

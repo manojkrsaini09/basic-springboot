@@ -5,7 +5,7 @@ import com.metacube.sageclarity.predictable.entity.Company;
 public class CompanyVO {
     private Long id;
     private String name;
-
+    private String  location;
     public CompanyVO() {
     }
 
@@ -14,6 +14,7 @@ public class CompanyVO {
             this.id = company.getId();
         }
         this.name = company.getName();
+        this.location = company.getLocation();
     }
 
     public Long getId() {
@@ -30,5 +31,13 @@ public class CompanyVO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
