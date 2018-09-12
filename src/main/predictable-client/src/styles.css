@@ -379,19 +379,30 @@ html,body {
   }
 
 .center-div
-{
-  position: absolute;
-  margin: auto;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 45%;
-  height: 50%;
-  background-color: #ccc;
-  border-radius: 3px;
+{  
+	margin: auto;
+	height: 100vh;
+	align-items: center;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
 }
-
+.center-div .logo-img {
+	width:40%;
+}
+.center-div .inner-form {
+	 border: 1px solid #007bff;
+	 padding: 15px;
+	 margin-top: 50px;
+	 border-radius: 5px;
+}
+.center-div .form-group.error-group {
+   margin-bottom: 0 !important;
+    height: 80px;
+} 
+.center-div .invalid-feedback {
+	    text-align: right;
+}
 .btn-test
 {
 	background-color:yellow !important;
@@ -418,4 +429,10 @@ html,body {
 	background-color: #007bff;
 	color: #fff;
 }
+
+/* user-list custom CSS end */
+
+/*Login form css*/
+
+/*Login form css end*/
   

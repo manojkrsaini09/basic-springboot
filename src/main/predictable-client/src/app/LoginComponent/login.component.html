@@ -1,28 +1,34 @@
-
-<!-- <div class="alert alert-danger" [hidden]="!error">
-  There was a problem logging in. Please try again.
-</div> -->
-<div class="center-div">
-  <div class="col-md-12">
-    <div class="alert alert-danger" *ngIf="errorMessage != '' ">{{errorMessage}}</div>
-<form role="form" #form="ngForm"(submit)="login()" nonvalidate>
-  <div class="form-group" [class.has-error]="username.invalid && username.touched">
-    <label for="username" class="control-label">User Name:</label>
-    <input type="text" class="form-control" #username="ngModel" id="username" name="username" [(ngModel)]="credentials.username"
-    required/>
-    <div class="alert alert-danger" *ngIf="username.invalid && username.touched">User Name Required</div>
-  </div>
-  <div class="form-group">
-    <label for="password">Password:</label>
-    <input type="password"  class="form-control" #password="ngModel" id="password" name="password" [(ngModel)]="credentials.password"
-    required/>
-    <div class="alert alert-danger" *ngIf="password.invalid && password.touched">Password Required</div>
-  </div>
-  <div class="form-group">
-    <label for="password">Remember Me:</label>
-    <input type="checkbox" name="remember-me" id="remember-me" [(ngModel)]="credentials.remember-me"/>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-</div>
+<div class="center-div col-12 col-md-8 col-lg-6">
+		<div class="logo-img text-center mx-auto">
+		    <img class="img-fluid" src="assets/images/SageLogo.png">
+		</div>
+		<div class="w-75 inner-form">
+			<div class="col-md-12">
+		    <div class="alert alert-danger" *ngIf="errorMessage != '' ">{{errorMessage}}</div>
+			<form role="form" #form="ngForm"(submit)="login()" nonvalidate>
+			  <div class="form-group error-group" [class.has-error]="username.invalid && username.touched">
+			    <label for="username" class="control-label">User Name:</label>
+			    <input type="text" class="form-control" #username="ngModel" id="username" name="username" [(ngModel)]="credentials.username"
+			    required/>
+			    <div class="invalid-feedback d-block" *ngIf="username.invalid && username.touched">User Name Required</div>
+			  </div>
+			  <div class="form-group error-group">
+			    <label for="password">Password:</label>
+			    <input type="password"  class="form-control" #password="ngModel" id="password" name="password" [(ngModel)]="credentials.password"
+			    required/>
+			    <div class="invalid-feedback d-block" *ngIf="password.invalid && password.touched">Password Required</div>
+			  </div>
+			  <div class="form-group">
+			  	 <div class="custom-control custom-checkbox col-md-6 d-flex align-items-center">
+	                  <input type="checkbox" class="custom-control-input" [(ngModel)]="credentials.remember-me" name="remember-me" id="remember-me" checked="checked">
+	                  <label class="custom-control-label" for="remember-me">Remember Me</label>
+	             </div>
+			    <!-- <label for="password">Remember Me:</label>
+			    <input type="checkbox" name="remember-me" id="remember-me" [(ngModel)]="credentials.remember-me"/>-->
+			  </div>
+			  <button type="submit" class="btn btn-primary float-right">Login</button>
+			</form>
+		</div>
+	</div>
+  	
 </div>
