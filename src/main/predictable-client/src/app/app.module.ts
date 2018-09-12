@@ -26,6 +26,8 @@ import { FormComponent } from './FormComponent/form.component';
 import { UserListComponent } from './Dashboard/UsersComponent/user-list.component';
 import { UserEditComponent } from './Dashboard/UsersComponent/user-edit.component';
 import { UserService } from './Dashboard/UsersComponent/user.service';
+import { ProductService } from './Services/product.service';
+import { CompanyService } from './Services/company.service';
 import { RoleService } from './Dashboard/RolesComponent/role.service';
 import { RoleComponent } from './Dashboard/RolesComponent/role.component';
 import { ConfigurationComponent } from './ConfigurationComponent/configuration.component';
@@ -35,6 +37,7 @@ import { ProfileComponent } from './ProfileComponent/profile.component';
 import { AuthInterceptor } from './HttpInterceptor/auth.interceptor';
 import { OrganizationComponent } from './OrganizationComponent/organization.component';
 import { OrganizationService } from './OrganizationComponent/organization.service';
+import {ProductsComponent} from './ConfigurationComponent/Product/product.component'
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -81,7 +84,11 @@ const appRoutes: Routes = [
                 component : UserListComponent
               },
               {
-                path : 'company',
+                path : 'product',
+                component : ProductsComponent
+              },
+              {
+                path : 'organization',
                 component : OrganizationComponent
               },
               {
@@ -113,7 +120,8 @@ const appRoutes: Routes = [
     LeftMenuComponent,
     ContentPanelComponent,
     ProfileComponent,
-    OrganizationComponent
+    OrganizationComponent,
+    ProductsComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -122,7 +130,7 @@ const appRoutes: Routes = [
     FormsModule,
     AngularFontAwesomeModule
   ],
-  providers: [AppService, UserService, RoleService, OrganizationService,
+  providers: [AppService, UserService, RoleService, OrganizationService, ProductService,CompanyService,   
     { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
