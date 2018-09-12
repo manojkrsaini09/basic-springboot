@@ -47,8 +47,6 @@
                              
                          </div>
                          <div class="form-row">     
-                              
-                            
                              <div class="form-group col-md-6">
                                      <label for="email">E-mail:</label>
                                      <input type="text" id="email" class="form-control" name="email" required 
@@ -73,6 +71,19 @@
                                      </div> 
                                     </div>-->
                          </div>
+                      <div class="form-row"> 
+                            <div class="form-group col-md-6">
+                                <label for="organization">Organization</label>
+                               <select class="form-control" name="organization" id="organization" 
+                               [(ngModel)]="selectedUser.companyVO" #organization="ngModel" required>
+                                 <option value="">--Select Organization--</option>
+                                 <option *ngFor="let org of organizations" [ngValue]="org">{{org.name}}</option>
+                               </select>
+                               <div class="invalid-feedback d-block" *ngIf="organization.invalid && organization.touched">
+                                     Organization is Required
+                       </div> 
+                   </div>    
+                           </div>
                          
                              <div class="col-md-12 text-right button-row">
                                     <button type="button" class="btn btn-primary" 
@@ -99,6 +110,7 @@
                             <th scope="col">Last</th>
                             <th scope="col">User Name</th>
                             <th scope="col">Role</th>
+                            <th scope="col">Organization</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -108,6 +120,7 @@
                             <td>{{user.lastName}}</td>
                             <td>{{user.userName}}</td>
                             <td>{{user.roles[0].role}}</td>
+                            <td>{{user.companyVO?.name}}</td>
                           </tr>
                         </tbody>
                       </table>

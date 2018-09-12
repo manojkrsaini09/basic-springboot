@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -47,6 +47,9 @@ export class XhrInterceptor implements HttpInterceptor {
   }
 }
 
+// export function init_app(provider: UserService) {
+//   return () => provider.getLoggedInUserInfo;
+// }
 const appRoutes: Routes = [
   {path: 'login' , component : LoginComponent},
   {path: 'dashboard',
@@ -124,7 +127,9 @@ const appRoutes: Routes = [
   ],
   providers: [AppService, UserService, RoleService, OrganizationService,
     { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    // { provide: APP_INITIALIZER, useFactory: init_app, deps: [UserService], multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

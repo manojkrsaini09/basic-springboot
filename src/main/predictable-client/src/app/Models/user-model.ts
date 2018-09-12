@@ -1,4 +1,5 @@
 import { Role } from './role-model';
+import { Organization } from './organization-model';
 
 /* Defines the product entity */
 export class User {
@@ -9,5 +10,6 @@ export class User {
     enabled: boolean;
     roles: Role[];
     email: string;
+    companyVO: Organization;
     constructor () { }
 }

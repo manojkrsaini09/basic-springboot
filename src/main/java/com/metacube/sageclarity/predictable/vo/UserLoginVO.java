@@ -9,6 +9,7 @@ public class UserLoginVO implements Serializable {
     private Boolean isAuthenticated = false;
     private String userName;
     private String errorMessage;
+    private UserVO userVO;
     public UserLoginVO(Principal principal){
         if(principal != null){
             this.userName = principal.getName();
@@ -44,5 +45,13 @@ public class UserLoginVO implements Serializable {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public UserVO getUserVO() {
+        return userVO;
+    }
+
+    public void setUserVO(UserVO userVO) {
+        this.userVO = userVO;
     }
 }

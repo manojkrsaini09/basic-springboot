@@ -5,17 +5,21 @@ import com.metacube.sageclarity.predictable.entity.Role;
 import com.metacube.sageclarity.predictable.entity.User;
 import com.metacube.sageclarity.predictable.enums.ExceptionType;
 import com.metacube.sageclarity.predictable.enums.UserRoleEnum;
+import com.metacube.sageclarity.predictable.exception.ApplicationLevelException;
 import com.metacube.sageclarity.predictable.helper.RequestHelper;
 import com.metacube.sageclarity.predictable.helper.ResponseHelper;
 import com.metacube.sageclarity.predictable.service.RoleService;
 import com.metacube.sageclarity.predictable.service.UserService;
 import com.metacube.sageclarity.predictable.vo.ResponseObject;
+import com.metacube.sageclarity.predictable.vo.UserLoginVO;
 import com.metacube.sageclarity.predictable.vo.UserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -79,5 +83,18 @@ public class UserController {
         }
     }
 
+    @RequestMapping("/user/userInfo")
+    public ResponseObject user(HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        User user = null;
+        try {
+            user = userService.getByUserName(principal.getName());
+            return ResponseObject.getResponse(new UserVO(user));
+        } catch (ApplicationLevelException e) {
+            logger.error(e.getMessage(), e);
+            return ResponseObject.getResponse(ExceptionType.GENERAL_ERROR.getMessage()
+                    , ExceptionType.GENERAL_ERROR.getCode());
+        }
+    }
 
 }

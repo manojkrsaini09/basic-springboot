@@ -2,14 +2,8 @@ package com.metacube.sageclarity.predictable.helper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.metacube.sageclarity.predictable.entity.Company;
-import com.metacube.sageclarity.predictable.entity.DemoEntity;
-import com.metacube.sageclarity.predictable.entity.Role;
-import com.metacube.sageclarity.predictable.entity.User;
-import com.metacube.sageclarity.predictable.vo.CompanyVO;
-import com.metacube.sageclarity.predictable.vo.DemoEntityVO;
-import com.metacube.sageclarity.predictable.vo.RoleVO;
-import com.metacube.sageclarity.predictable.vo.UserVO;
+import com.metacube.sageclarity.predictable.entity.*;
+import com.metacube.sageclarity.predictable.vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ObjectUtils;
@@ -53,5 +47,13 @@ public class ResponseHelper {
 			companyVOS.add(new CompanyVO(company));
 		}
 		return companyVOS;
+	}
+
+	public static  List<ProductVO> getProductVOList(List<Product> products){
+		List<ProductVO> productsVOs = new ArrayList<>();
+		for(Product product : products){
+			productsVOs.add(new ProductVO(product));
+		}
+		return productsVOs;
 	}
 }

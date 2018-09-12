@@ -16,6 +16,7 @@ import com.metacube.sageclarity.predictable.enums.UserRoleEnum;
 import com.metacube.sageclarity.predictable.helper.ResponseHelper;
 import com.metacube.sageclarity.predictable.vo.ResponseObject;
 import com.metacube.sageclarity.predictable.vo.UserLoginVO;
+import com.metacube.sageclarity.predictable.vo.UserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +78,20 @@ public class MainController {
 	@RequestMapping("/userInfo")
 	public ResponseObject user(HttpServletRequest request) {
 		Principal principal = request.getUserPrincipal();
+		User user = null;
+
+			try {
+				if(principal!=null) {
+					user = userService.getByUserName(principal.getName());
+				}
+			} catch (ApplicationLevelException e) {
+				e.printStackTrace();
+			}
+
 		UserLoginVO userLoginVO = new UserLoginVO(principal);
+			if(user!=null){
+				userLoginVO.setUserVO(new UserVO(user));
+			}
 		return ResponseObject.getResponse(userLoginVO);
 	}
 

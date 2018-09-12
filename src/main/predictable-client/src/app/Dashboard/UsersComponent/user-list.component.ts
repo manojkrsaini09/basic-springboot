@@ -3,6 +3,8 @@ import { User } from '../../Models/user-model';
 import { UserService } from './user.service';
 import { RoleService } from '../RolesComponent/role.service';
 import { Role } from '../../Models/role-model';
+import { Organization } from '../../Models/organization-model';
+import { OrganizationService } from '../../OrganizationComponent/organization.service';
 
 @Component({
     templateUrl : './user-list.component.html'
@@ -13,12 +15,16 @@ export class UserListComponent implements OnInit {
     errorMessage: string;
     editableMode = false;
     selectedUser: User;
+    organizations: Organization[];
+
     ngOnInit(): void {
         this.getUsers();
         this.getRoles();
+        this.getOrganizations();
     }
 
-    constructor(private userService: UserService, private roleService: RoleService) {
+    constructor(private userService: UserService, private roleService: RoleService,
+        private organizationService: OrganizationService) {
         this.roleService = roleService;
     }
 
@@ -35,7 +41,19 @@ export class UserListComponent implements OnInit {
             error => this.errorMessage = 'Error in call'
         );
     }
-
+    getOrganizations(): void {
+        this.organizationService.getOrganizations().subscribe(
+            response => {
+               console.log(response);
+               if (response['status'] === 'SUCCESS') {
+                this.organizations = response['data'];
+               } else {
+                // this.errorMessage = "";
+               }
+            },
+            error => this.errorMessage = 'Error in call'
+        );
+    }
     getRoles(): void {
         this.roleService.getRoles().subscribe(
             response => {
@@ -53,6 +71,7 @@ export class UserListComponent implements OnInit {
     addNewUser(): void {
         this.selectedUser = new User();
         this.selectedUser.roles = [];
+        this.selectedUser.companyVO = new Organization();
         this.selectedUser.enabled = true;
         this.editableMode = true;
     }

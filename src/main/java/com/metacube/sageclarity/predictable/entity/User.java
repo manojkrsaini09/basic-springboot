@@ -11,13 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 
 @Entity(name = "user")
@@ -40,6 +34,10 @@ public class User extends BaseEntity implements Serializable{
 
 	@Column
     private String emailId;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "company_id", referencedColumnName = "id")
+	private Company company;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -73,6 +71,9 @@ public class User extends BaseEntity implements Serializable{
 				this.roles.add(new Role(role));
 			}
 
+		}
+		if(userVO.getCompanyVO() != null){
+			this.setCompany(new Company(userVO.getCompanyVO()));
 		}
 	}
 
@@ -131,4 +132,12 @@ public class User extends BaseEntity implements Serializable{
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 }

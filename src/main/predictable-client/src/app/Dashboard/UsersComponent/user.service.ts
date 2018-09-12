@@ -7,7 +7,7 @@ import { User } from '../../Models/user-model';
 
 @Injectable()
 export class UserService {
-
+    loggedInUser: User;
     errorMessage: string;
     constructor(private route: Router, private http: HttpClient) {
 
@@ -32,6 +32,22 @@ export class UserService {
                 console.log(response);
                 if ( response['status'] === 'SUCCESS') {
                     this.errorMessage = response['data'].errorMessage;
+                } else {
+                    this.errorMessage = response['data'].errorMessage;
+                }
+            }),
+            catchError(this.handleError)
+        );
+    }
+
+    getLoggedInUserInfo(): Observable<any> {
+        return this.http.get('user/userInfo').pipe(
+            tap( response => {
+                console.log(response);
+                if ( response['status'] === 'SUCCESS') {
+                    this.loggedInUser =  response['data'];
+                    console.log('got user data');
+                    console.log(this.loggedInUser);
                 } else {
                     this.errorMessage = response['data'].errorMessage;
                 }

@@ -7,6 +7,7 @@ import { tap , catchError , finalize } from 'rxjs/operators';
 @Injectable()
 export class AppService {
   authenticated = false;
+  loggedInUserInfo = {};
   errorMessage = '';
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -21,6 +22,7 @@ export class AppService {
             tap(response => {
                 if ( response['status'] === 'SUCCESS') {
                     this.authenticated = response['data'].authenticated;
+                    this.loggedInUserInfo = response['data'].userVO;
                     this.errorMessage = response['data'].errorMessage;
                 } else {
                     this.authenticated = false;

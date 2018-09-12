@@ -16,6 +16,7 @@ public class UserVO {
     private Long companyId;
     private Boolean enabled;
     private String email;
+    private CompanyVO companyVO;
     public UserVO(){}
     public UserVO(User user){
         this.id = user.getId();
@@ -29,6 +30,9 @@ public class UserVO {
             for(Role role:user.getRoles()){
                 this.roles.add(new RoleVO(role));
             }
+        }
+        if(user.getCompany() != null){
+            this.companyVO = new CompanyVO(user.getCompany());
         }
     }
 
@@ -94,5 +98,13 @@ public class UserVO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public CompanyVO getCompanyVO() {
+        return companyVO;
+    }
+
+    public void setCompanyVO(CompanyVO companyVO) {
+        this.companyVO = companyVO;
     }
 }
