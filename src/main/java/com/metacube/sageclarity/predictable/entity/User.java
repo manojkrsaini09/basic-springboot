@@ -67,7 +67,7 @@ public class User extends BaseEntity implements Serializable{
 		this.lastName = userVO.getLastName();
 		this.username = userVO.getUserName();
 		this.enabled = userVO.getEnabled();
-		this.emailId = userVO.getEmailId();
+		this.emailId = userVO.getEmail();
 		if(userVO.getRoles()!=null){
 			for(RoleVO role:userVO.getRoles()){
 				this.roles.add(new Role(role));

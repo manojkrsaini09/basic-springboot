@@ -53,7 +53,6 @@ public class UserController {
     public
     @ResponseBody
     ResponseObject getAllUsers(){
-
         try {
             List<User> users = null;
             users = userService.getAllUsers();

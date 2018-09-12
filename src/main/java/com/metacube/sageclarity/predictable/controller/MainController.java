@@ -43,9 +43,9 @@ public class MainController {
 
 	/*@RequestMapping(value = "/", method = RequestMethod.GET)
 	public void home(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		res.sendRedirect("/predictable-client/index.html");
-	}*/
-
+		res.sendRedirect("/predictable/index.html");
+	}
+*/
 	@PostConstruct
 	public void init() {
 

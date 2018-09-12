@@ -2,9 +2,11 @@ package com.metacube.sageclarity.predictable.helper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.metacube.sageclarity.predictable.entity.Company;
 import com.metacube.sageclarity.predictable.entity.DemoEntity;
 import com.metacube.sageclarity.predictable.entity.Role;
 import com.metacube.sageclarity.predictable.entity.User;
+import com.metacube.sageclarity.predictable.vo.CompanyVO;
 import com.metacube.sageclarity.predictable.vo.DemoEntityVO;
 import com.metacube.sageclarity.predictable.vo.RoleVO;
 import com.metacube.sageclarity.predictable.vo.UserVO;
@@ -43,5 +45,13 @@ public class ResponseHelper {
 			userVOs.add(new UserVO(user));
 		}
 		return userVOs;
+	}
+
+	public static  List<CompanyVO> getCompanyVOList(List<Company> companies){
+		List<CompanyVO> companyVOS = new ArrayList<>();
+		for(Company company : companies){
+			companyVOS.add(new CompanyVO(company));
+		}
+		return companyVOS;
 	}
 }
