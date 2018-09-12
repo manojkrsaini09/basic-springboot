@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {IProduct} from '../../Models/productModel';
-import { ICompany } from '../../Models/companyModel';
+import { IOrgnization } from '../../Models/companyModel';
 import {ProductService} from '../../Services/product.service';
 import {CompanyService} from '../../Services/company.service';
 
@@ -9,10 +9,12 @@ import {CompanyService} from '../../Services/company.service';
 })
 export class ProductsComponent{
     products: IProduct[];
-    companies: ICompany[];
+    orgnaizations: IOrgnization[];
     errorMessage: string;
     editableMode = false;
     selectedProduct: IProduct;
+    isSuperAdmin:boolean=true;
+    userOrgnizationId:number = 1;
 
     constructor(private productService: ProductService, private companyService: CompanyService) {}
 
@@ -22,7 +24,7 @@ export class ProductsComponent{
     }
 
     getCompanies():void{
-        this.companies = this.companyService.getCompanies();
+        this.orgnaizations = this.companyService.getCompanies();
     }
 
     getProducts(): void {
@@ -35,6 +37,10 @@ export class ProductsComponent{
     }
 
     saveProduct(): void {
+        if(!this.isSuperAdmin){
+            this.selectedProduct.organizationId = this.userOrgnizationId;
+        }
+        
         if(this.selectedProduct.id > 0){
             this.productService.updateProduct(this.selectedProduct);
         }
@@ -60,6 +66,7 @@ export class ProductsComponent{
 
     deleteProduct(id:number):void{
         this.productService.deleteProduct(id);
+        this.editableMode = false;
         this.getProducts();
     }
 }

@@ -32,17 +32,19 @@
                                         </div>
                                 </div>
                             </div>
-                            <div class="form-row">
+                            <div class="form-row" *ngIf="isSuperAdmin">
                                     <div class="form-group col-md-6">
-                                        <label for="Company">Company</label>
-                                        <select class="form-control" name="company" id="company" 
-                                            [(ngModel)]="selectedProduct.organizationId" #productCompany="ngModel" required>
-                                            <option value="">--Select Company--</option>
-                                            <option *ngFor="let company of companies" [ngValue]="company.id">{{company.name}}</option>
+                                        <label for="orgnization">Orgnization</label>
+                                        <select class="form-control" name="orgnization" id="orgnization" 
+                                            [(ngModel)]="selectedProduct.organizationId" #productOrgnization="ngModel" required>
+                                            <option value="">--Select Orgnization--</option>
+                                            <option *ngFor="let org of orgnaizations" [ngValue]="org.id">{{org.name}}</option>
                                         </select>
-                                        <div class="invalid-feedback d-block" *ngIf="productCompany.invalid && productCompany.touched">Please select company</div>
+                                        <div class="invalid-feedback d-block" *ngIf="productOrgnization.invalid && productOrgnization.touched">Please select company</div>
                                     </div>
                             </div>
+
+                            <!-- <input type="hidden" id="orgid" *ngIf="!isSuperAdmin"  name="orgid" [value]="userOrgnizationId"/> -->
                              
                              
                             <div class="col-md-12 text-right button-row">
