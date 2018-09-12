@@ -430,6 +430,14 @@ html,body {
 	color: #fff;
 }
 
+.list-icons{
+  font-size:25px !important;
+}
+
+.mr-lt-20{
+  margin-left:20px !important;
+}
+
 /* user-list custom CSS end */
 
 /*Login form css*/
