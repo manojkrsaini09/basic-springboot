@@ -27,6 +27,8 @@ import { UserListComponent } from './Dashboard/UsersComponent/user-list.componen
 import { UserEditComponent } from './Dashboard/UsersComponent/user-edit.component';
 import { UserService } from './Dashboard/UsersComponent/user.service';
 import { ProductService } from './Services/product.service';
+import { LineService } from './Services/line.service';
+import { EventTypeService } from './Services/eventType.service';
 import { CompanyService } from './Services/company.service';
 import { RoleService } from './Dashboard/RolesComponent/role.service';
 import { RoleComponent } from './Dashboard/RolesComponent/role.component';
@@ -38,6 +40,8 @@ import { AuthInterceptor } from './HttpInterceptor/auth.interceptor';
 import { OrganizationComponent } from './OrganizationComponent/organization.component';
 import { OrganizationService } from './OrganizationComponent/organization.service';
 import {ProductsComponent} from './ConfigurationComponent/Product/product.component';
+import {LinesComponent} from './ConfigurationComponent/Line/line.component';
+import {EventTypeComponent} from './ConfigurationComponent/Event/eventType.component';
 import { UserInfoProvider } from './Services/preload.service';
 
 import {TableModule} from 'primeng/table';
@@ -99,6 +103,14 @@ const appRoutes: Routes = [
                 component : ProductsComponent
               },
               {
+                path : 'line',
+                component : LinesComponent
+              },
+              {
+                path : 'eventtype',
+                component : EventTypeComponent
+              },
+              {
                 path : 'organization',
                 component : OrganizationComponent
               },
@@ -132,7 +144,9 @@ const appRoutes: Routes = [
     ContentPanelComponent,
     ProfileComponent,
     OrganizationComponent,
-    ProductsComponent
+    ProductsComponent,
+    LinesComponent,
+    EventTypeComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -144,7 +158,7 @@ const appRoutes: Routes = [
     ToastModule,
     BrowserAnimationsModule
   ],
-  providers: [AppService, UserService, RoleService, OrganizationService, ProductService , CompanyService,MessageService,
+  providers: [AppService, UserService, RoleService, OrganizationService, ProductService , CompanyService,MessageService,LineService,EventTypeService,
     UserInfoProvider,
     { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

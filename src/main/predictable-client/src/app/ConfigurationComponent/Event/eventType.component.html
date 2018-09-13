@@ -1,0 +1,85 @@
+<p-toast [style]="{marginTop: '80px'}" life="1000"></p-toast>
+<div class="container user-list">
+
+    <div class="row">
+          <div class="col-md-12">
+                <button type="button" class="btn btn-primary float-right" 
+                 (click)="addNewEventType()" *ngIf="!editableMode">Add Event Type</button>
+          </div> 
+    </div>
+    <div class="row" *ngIf="editableMode">
+          <div class="col-md-12">
+               <h3><span *ngIf="!selectedEventType.id">New</span> <span *ngIf="selectedEventType.id">Edit</span> Event Type </h3>
+          </div>
+          <div class="col-md-12">
+                    <form #eventTypeform="ngForm" novalidate>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="name" class="control-label">Name:</label>
+                                    <input type="text" id="name" #eventTypeName="ngModel" class="form-control" name="name"
+                                    [(ngModel)]="selectedEventType.name" required/>
+                                    <div class="invalid-feedback d-block" *ngIf="eventTypeName.invalid && eventTypeName.touched">
+                                            Name is Required
+                                    </div>
+                                </div>
+                              
+                                <div class="form-group col-md-6">
+                                        <label for="constraints" class="control-label">Constraints:</label>
+                                        <input type="text" id="constraints" #eventTypeConstraints="ngModel" class="form-control" name="constraints"
+                                        [(ngModel)]="selectedEventType.constraints" required/>
+                                        <div class="invalid-feedback d-block" *ngIf="eventTypeConstraints.invalid && eventTypeConstraints.touched">
+                                                Constraints is Required
+                                        </div>
+                                    </div>
+                            </div>
+
+                            <div class="form-row">
+                                    <div class="form-group col-md-6" *ngIf="isSuperAdmin">
+                                            <label for="orgnization">Orgnization</label>
+                                            <select class="form-control" name="orgnization" id="orgnization" 
+                                                [(ngModel)]="selectedEventType.companyId" #eventTypeOrgnization="ngModel" required>
+                                                <option value="">--Select Orgnization--</option>
+                                                <option *ngFor="let org of orgnizations" [ngValue]="org.id">{{org.name}}</option>
+                                            </select>
+                                            <div class="invalid-feedback d-block" *ngIf="eventTypeOrgnization.invalid && eventTypeOrgnization.touched">Please select company</div>
+                                    </div>
+
+                                    <div class="custom-control custom-checkbox col-md-6 d-flex align-items-center">
+                                            <input type="checkbox" class="custom-control-input" [(ngModel)]="selectedEventType.discard" id="discard" 
+                                            #discard="ngModel" name="discard" checked="checked">
+                                            <label class="custom-control-label" for="discard">Discard</label>
+                                    </div>
+                            </div>
+                            <!-- <input type="hidden" id="orgid" *ngIf="!isSuperAdmin"  name="orgid" [value]="userOrgnizationId"/> -->
+                             
+                            <div class="col-md-12 text-right button-row">
+                                        <button type="button" class="btn btn-primary" 
+                                        (click)="saveEventType()" [disabled]="eventTypeform.invalid">Save</button>
+    
+                                        <button type="button" class="btn btn-secondary" 
+                                        (click)="cancel()">Cancel</button>
+                            </div>
+                    </form>
+          </div>
+    </div>
+    
+    <p-table [value]="eventTypes" [paginator]="true" [rows]="8" [responsive]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Constraints</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-eventType>
+                <tr>
+                    <td>{{eventType.name}}</td>
+                    <td>{{eventType.constraints}}</td>
+                    <td>
+                        <button pButton icon="fa fa-edit" (click)="editEventType(eventType)"></button> 
+                        <button pButton icon="fa fa-trash-o" (click)="deleteEventType(eventType.id)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+</div>

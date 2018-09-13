@@ -4,21 +4,21 @@
     <div class="row">
           <div class="col-md-12">
                 <button type="button" class="btn btn-primary float-right" 
-                 (click)="addNewProduct()" *ngIf="!editableMode">Add Product</button>
+                 (click)="addNewLine()" *ngIf="!editableMode">Add Line</button>
           </div> 
     </div>
     <div class="row" *ngIf="editableMode">
           <div class="col-md-12">
-               <h3><span *ngIf="!selectedProduct.id">New</span> <span *ngIf="selectedProduct.id">Edit</span> Product </h3>
+               <h3><span *ngIf="!selectedLine.id">New</span> <span *ngIf="selectedLine.id">Edit</span> Line </h3>
           </div>
           <div class="col-md-12">
-                    <form #productform="ngForm" novalidate>
+                    <form #lineform="ngForm" novalidate>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="name" class="control-label">Name:</label>
-                                    <input type="text" id="name" #productName="ngModel" class="form-control" name="name"
-                                    [(ngModel)]="selectedProduct.name" required/>
-                                    <div class="invalid-feedback d-block" *ngIf="productName.invalid && productName.touched">
+                                    <input type="text" id="name" #lineName="ngModel" class="form-control" name="name"
+                                    [(ngModel)]="selectedLine.name" required/>
+                                    <div class="invalid-feedback d-block" *ngIf="lineName.invalid && lineName.touched">
                                             Name is Required
                                     </div>
                                 </div>
@@ -26,18 +26,18 @@
                                 <div class="form-group col-md-6" *ngIf="isSuperAdmin">
                                         <label for="orgnization">Orgnization</label>
                                         <select class="form-control" name="orgnization" id="orgnization" 
-                                            [(ngModel)]="selectedProduct.companyId" #productOrgnization="ngModel" required>
+                                            [(ngModel)]="selectedLine.companyId" #lineOrgnization="ngModel" required>
                                             <option value="">--Select Orgnization--</option>
                                             <option *ngFor="let org of orgnizations" [ngValue]="org.id">{{org.name}}</option>
                                         </select>
-                                        <div class="invalid-feedback d-block" *ngIf="productOrgnization.invalid && productOrgnization.touched">Please select company</div>
+                                        <div class="invalid-feedback d-block" *ngIf="lineOrgnization.invalid && lineOrgnization.touched">Please select company</div>
                                     </div>
                             </div>
                             <!-- <input type="hidden" id="orgid" *ngIf="!isSuperAdmin"  name="orgid" [value]="userOrgnizationId"/> -->
                              
                             <div class="col-md-12 text-right button-row">
                                         <button type="button" class="btn btn-primary" 
-                                        (click)="saveProduct()" [disabled]="productform.invalid">Save</button>
+                                        (click)="saveLine()" [disabled]="lineform.invalid">Save</button>
     
                                         <button type="button" class="btn btn-secondary" 
                                         (click)="cancel()">Cancel</button>
@@ -46,19 +46,19 @@
           </div>
     </div>
     
-    <p-table [value]="products" [paginator]="true" [rows]="8" [responsive]="true">
+    <p-table [value]="lines" [paginator]="true" [rows]="8" [responsive]="true">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Name</th>
                     <th></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template pTemplate="body" let-line>
                 <tr>
-                    <td>{{product.name}}</td>
+                    <td>{{line.name}}</td>
                     <td>
-                        <button pButton icon="fa fa-edit" (click)="editProduct(product)"></button> 
-                        <button pButton icon="fa fa-trash-o" (click)="deleteProduct(product.id)"></button>
+                        <button pButton icon="fa fa-edit" (click)="editLine(line)"></button> 
+                        <button pButton icon="fa fa-trash-o" (click)="deleteLine(line.id)"></button>
                     </td>
                 </tr>
             </ng-template>
