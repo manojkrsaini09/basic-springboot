@@ -37,7 +37,7 @@ import { ProfileComponent } from './ProfileComponent/profile.component';
 import { AuthInterceptor } from './HttpInterceptor/auth.interceptor';
 import { OrganizationComponent } from './OrganizationComponent/organization.component';
 import { OrganizationService } from './OrganizationComponent/organization.service';
-import {ProductsComponent} from './ConfigurationComponent/Product/product.component'
+import {ProductsComponent} from './ConfigurationComponent/Product/product.component';
 import { UserInfoProvider } from './Services/preload.service';
 
 @Injectable()
