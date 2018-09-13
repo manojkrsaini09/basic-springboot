@@ -48,6 +48,33 @@ public class ProductController {
         }
     }
 
+    @RequestMapping(value = "/product/update", produces = "application/json",consumes="application/json"
+            ,method = RequestMethod.POST)
+    public
+    @ResponseBody
+    ResponseObject updateProduct(@RequestBody String productStr, @RequestParam(value = "id") String productIdStr){
+        if(RequestHelper.isEmptyRequestString(productStr) || RequestHelper.isEmptyRequestString(productIdStr))
+            return (ResponseObject.getResponse(ExceptionType.INVALID_METHOD_PARAM.getMessage()
+                    , ExceptionType.INVALID_METHOD_PARAM.getCode()));
+        try {
+            Long productId = Long.valueOf(productIdStr);
+            Product product = productService.getById(productId);
+            if(product == null){
+                logger.error("No Product found for id: " + productId);
+                return ResponseObject.getResponse(ExceptionType.NO_DATA_FOUND.getMessage()
+                        , ExceptionType.NO_DATA_FOUND.getCode());
+            }
+            ProductVO productVO = mapper.readValue(productStr,ProductVO.class);
+             product = new Product(productVO,product);
+            product = productService.save(product);
+            return ResponseObject.getResponse(new ProductVO(product));
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ResponseObject.getResponse(ExceptionType.GENERAL_ERROR.getMessage()
+                    , ExceptionType.GENERAL_ERROR.getCode());
+        }
+    }
+
     @RequestMapping(value = "/product/all", produces = "application/json",method = RequestMethod.GET)
     public
     @ResponseBody

@@ -1,6 +1,8 @@
 package com.metacube.sageclarity.predictable.entity;
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.metacube.sageclarity.predictable.vo.ProductVO;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,6 +23,21 @@ public class Product extends  BaseEntity implements Serializable {
     }
 
     public Product(ProductVO productVO) {
+        if(productVO.getId()!=null){
+            super.setId(productVO.getId());
+        }
+        this.name = productVO.getName();
+        this.attributes = productVO.getAttributes();
+        if(productVO.getCompanyVO()!=null){
+            this.company = new Company(productVO.getCompanyVO());
+        }else if(productVO.getCompanyId()!=null){
+            this.company = new Company(productVO.getCompanyId());
+        }
+
+    }
+
+    public Product(ProductVO productVO,Product product) {
+        BeanUtils.copyProperties(product,this);
         if(productVO.getId()!=null){
             super.setId(productVO.getId());
         }
