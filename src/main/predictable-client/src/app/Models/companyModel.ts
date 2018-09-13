@@ -1,4 +1,4 @@
-export interface ICompany{
+export interface IOrgnization{
     id:number;
     name:string;
 }

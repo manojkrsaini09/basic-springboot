@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
-import { ICompany } from '../Models/companyModel';
+import { IOrgnization } from '../Models/companyModel';
 
 @Injectable()
 export class CompanyService{
     constructor(private http: HttpClient) {}
 
-    getCompanies():ICompany[]{
+    getCompanies():IOrgnization[]{
         return [
             {id:1,name:"Company 1"},
             {id:2,name:"Company 2"},
