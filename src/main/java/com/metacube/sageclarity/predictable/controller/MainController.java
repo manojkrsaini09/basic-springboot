@@ -51,7 +51,7 @@ public class MainController {
 	public void init() {
 
 		try {
-			User user = new User("User", "user", passwordEncoder.encode("password"), true);
+			/*User user = new User("User", "user", passwordEncoder.encode("password"), true);
 			List<Role> roles1 = new ArrayList<>();
 			roles1.add(new Role(null,UserRoleEnum.USER));
 			user.setRoles(roles1);
@@ -60,7 +60,12 @@ public class MainController {
 			List<Role> roles2 = new ArrayList<>();
 			roles2.add(new Role( null,UserRoleEnum.ADMIN));
 			admin.setRoles(roles2);
-			userService.saveUser(admin);
+			userService.saveUser(admin);*/
+			User superuser = new User("SuperUser", "superuser", passwordEncoder.encode("password"), true);
+			List<Role> roles3 = new ArrayList<>();
+			roles3.add(new Role(null,UserRoleEnum.SUPER_ADMIN));
+			superuser.setRoles(roles3);
+			userService.saveUser(superuser);
 		} catch (ApplicationLevelException e) {
 			e.printStackTrace();
 		}

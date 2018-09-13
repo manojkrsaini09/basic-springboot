@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public enum UserRoleEnum {
+	SUPER_ADMIN("Super Admin") ,
 	USER("User") ,
 	ADMIN("Admin");
 
