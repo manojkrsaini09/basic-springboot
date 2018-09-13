@@ -16,6 +16,7 @@ export class UserService {
     getUsers(): Observable<any> {
         return this.http.get('user').pipe(
             tap( response => {
+                console.log('user data:');
                 console.log(response);
                 if ( response['status'] === 'SUCCESS') {
                     this.errorMessage = response['data'].errorMessage;

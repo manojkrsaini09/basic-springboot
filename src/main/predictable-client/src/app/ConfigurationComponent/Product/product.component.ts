@@ -3,28 +3,38 @@ import {IProduct} from '../../Models/productModel';
 import { IOrgnization } from '../../Models/companyModel';
 import {ProductService} from '../../Services/product.service';
 import {CompanyService} from '../../Services/company.service';
-
+import { AppService} from '../../app.service';
+import {MessageService} from 'primeng/api';
 @Component({
     templateUrl : './product.component.html'
 })
 export class ProductsComponent{
     products: IProduct[];
-    orgnaizations: IOrgnization[];
+    orgnizations: IOrgnization[];
     errorMessage: string;
     editableMode = false;
     selectedProduct: IProduct;
-    isSuperAdmin:boolean=true;
-    userOrgnizationId:number = 1;
+    isSuperAdmin:boolean=false;
+    userOrgnizationId:number = 0;
 
-    constructor(private productService: ProductService, private companyService: CompanyService) {}
+    constructor(private productService: ProductService, private companyService: CompanyService, private appService:AppService,
+                private messageService: MessageService) {}
 
     ngOnInit(): void {
+        if(this.appService.loggedInUserInfo){
+            if(this.appService.loggedInUserInfo.roles != null && this.appService.loggedInUserInfo.roles.length > 0 && this.appService.loggedInUserInfo.roles[0].role == "superadmin"){
+                this.isSuperAdmin = true;
+            }
+            if(this.appService.loggedInUserInfo.companyVO != null){
+                this.userOrgnizationId = this.appService.loggedInUserInfo.companyVO.id;
+            }
+        }
         this.getCompanies();
         this.getProducts();
     }
 
     getCompanies():void{
-        this.orgnaizations = this.companyService.getCompanies();
+        this.orgnizations = this.companyService.getCompanies();
     }
 
     getProducts(): void {
@@ -38,14 +48,16 @@ export class ProductsComponent{
 
     saveProduct(): void {
         if(!this.isSuperAdmin){
-            this.selectedProduct.organizationId = this.userOrgnizationId;
+            this.selectedProduct.companyId = this.userOrgnizationId;
         }
         
         if(this.selectedProduct.id > 0){
             this.productService.updateProduct(this.selectedProduct);
+            this.messageService.add({severity:'info', summary: 'Success', detail:'Updated Successfully'});
         }
         else{
             this.productService.saveProduct(this.selectedProduct);
+            this.messageService.add({severity:'info', summary: 'Success', detail:'Saved Successfully'});
         }
         
         this.selectedProduct = {} as IProduct;
@@ -66,6 +78,7 @@ export class ProductsComponent{
 
     deleteProduct(id:number):void{
         this.productService.deleteProduct(id);
+        this.messageService.add({severity:'info', summary: 'Success', detail:'Deleted Successfully'});
         this.editableMode = false;
         this.getProducts();
     }
