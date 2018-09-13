@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppComponent } from './app.component';
 import { Injectable } from '@angular/core';
 import { LoginComponent } from './LoginComponent/login.component';
@@ -39,6 +39,12 @@ import { OrganizationComponent } from './OrganizationComponent/organization.comp
 import { OrganizationService } from './OrganizationComponent/organization.service';
 import {ProductsComponent} from './ConfigurationComponent/Product/product.component';
 import { UserInfoProvider } from './Services/preload.service';
+
+import {TableModule} from 'primeng/table';
+import {ButtonModule} from 'primeng/button';
+import {ToastModule} from 'primeng/toast';
+
+import {MessageService} from 'primeng/api';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -133,9 +139,12 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AngularFontAwesomeModule
+    TableModule,
+    ButtonModule,
+    ToastModule,
+    BrowserAnimationsModule
   ],
-  providers: [AppService, UserService, RoleService, OrganizationService, ProductService , CompanyService,
+  providers: [AppService, UserService, RoleService, OrganizationService, ProductService , CompanyService,MessageService,
     UserInfoProvider,
     { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
