@@ -9,4 +9,5 @@ public interface UserService {
 	public User saveUser(User user) throws ApplicationLevelException;
 	public User getByUserName(String userName) throws ApplicationLevelException;
 	public List<User> getAllUsers() throws ApplicationLevelException;
+	public User getById(Long id) throws ApplicationLevelException;
 }

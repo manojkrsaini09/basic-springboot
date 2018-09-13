@@ -18,9 +18,9 @@ export class OrganizationService {
             tap( response => {
                 console.log(response);
                 if ( response['status'] === 'SUCCESS') {
-                    this.errorMessage = response['data'].exception;
+                    // this.errorMessage = response['data'].exception;
                 } else {
-                    this.errorMessage = response['data'].exception;
+                    this.errorMessage = response['data'].exception.message;
                 }
             }),
             catchError(this.handleError)

@@ -43,8 +43,8 @@ export class OrganizationComponent implements OnInit {
                if (response['status'] === 'SUCCESS') {
                 this.organizations.push(response['data']);
                } else {
-                   // this.errorMessage = response.exception.message;
-                   this.errorMessage = 'Server Error';
+                    this.errorMessage = response.exception.message;
+                   // this.errorMessage = 'Server Error';
                }
             },
             error => this.errorMessage = 'Error in call'

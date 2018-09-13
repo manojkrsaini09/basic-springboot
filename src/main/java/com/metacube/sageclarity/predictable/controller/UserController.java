@@ -97,4 +97,31 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/user/update", produces = "application/json",consumes="application/json"
+            ,method = RequestMethod.POST)
+    public
+    @ResponseBody
+    ResponseObject updateProduct(@RequestBody String userStr, @RequestParam(value = "id") String userIdStr){
+        if(RequestHelper.isEmptyRequestString(userStr) || RequestHelper.isEmptyRequestString(userIdStr))
+            return (ResponseObject.getResponse(ExceptionType.INVALID_METHOD_PARAM.getMessage()
+                    , ExceptionType.INVALID_METHOD_PARAM.getCode()));
+        try {
+            Long userId = Long.valueOf(userIdStr);
+            User user = userService.getById(userId);
+            if(user == null){
+                logger.error("No user found for id: " + userId);
+                return ResponseObject.getResponse(ExceptionType.NO_DATA_FOUND.getMessage()
+                        , ExceptionType.NO_DATA_FOUND.getCode());
+            }
+            UserVO userVO = mapper.readValue(userStr,UserVO.class);
+            user = new User(userVO,user);
+            user = userService.saveUser(user);
+            return ResponseObject.getResponse(new UserVO(user));
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ResponseObject.getResponse(ExceptionType.GENERAL_ERROR.getMessage()
+                    , ExceptionType.GENERAL_ERROR.getCode());
+        }
+    }
+
 }

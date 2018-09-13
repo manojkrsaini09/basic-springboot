@@ -29,4 +29,9 @@ public class UserDaoImpl implements UserDao{
 	public List<User> getAll() {
 		return jpaUserDao.findAll();
 	}
+
+	@Override
+	public User getById(Long id) {
+		return jpaUserDao.getOne(id);
+	}
 }

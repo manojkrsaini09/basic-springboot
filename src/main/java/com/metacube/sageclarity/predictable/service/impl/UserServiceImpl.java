@@ -83,4 +83,20 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 
+	@Override
+	public User getById(Long id) throws ApplicationLevelException {
+		if(id == null){
+			String message= "user id is null";
+			logger.error(message);
+			throw new InvalidParamException(message);
+		}
+		try {
+			User user = userDao.getById(id);
+			return user;
+		}catch (Exception e){
+			String message = "Db exception while finding user by id: "+ id + ". " + e.getMessage();
+			logger.error(message, e);
+			throw new ApplicationLevelException(message, e);
+		}
+	}
 }

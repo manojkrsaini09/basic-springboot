@@ -84,4 +84,32 @@ public class CompanyController {
         }
     }
 
+
+    @RequestMapping(value = "/company/update", produces = "application/json",consumes="application/json"
+            ,method = RequestMethod.POST)
+    public
+    @ResponseBody
+    ResponseObject updateProduct(@RequestBody String companyStr, @RequestParam(value = "id") String companyIdStr){
+        if(RequestHelper.isEmptyRequestString(companyStr) || RequestHelper.isEmptyRequestString(companyIdStr))
+            return (ResponseObject.getResponse(ExceptionType.INVALID_METHOD_PARAM.getMessage()
+                    , ExceptionType.INVALID_METHOD_PARAM.getCode()));
+        try {
+            Long companyId = Long.valueOf(companyIdStr);
+            Company company = companyService.getById(companyId);
+            if(company == null){
+                logger.error("No company found for id: " + companyId);
+                return ResponseObject.getResponse(ExceptionType.NO_DATA_FOUND.getMessage()
+                        , ExceptionType.NO_DATA_FOUND.getCode());
+            }
+            CompanyVO companyVO = mapper.readValue(companyStr,CompanyVO.class);
+            company = new Company(companyVO,company);
+            company = companyService.save(company);
+            return ResponseObject.getResponse(new CompanyVO(company));
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ResponseObject.getResponse(ExceptionType.GENERAL_ERROR.getMessage()
+                    , ExceptionType.GENERAL_ERROR.getCode());
+        }
+    }
+
 }

@@ -8,4 +8,5 @@ public interface UserDao {
 	public User saveUser(User user);
 	public User getUserByUserName(String userName);
 	public List<User> getAll();
+	public User getById(Long id);
 }

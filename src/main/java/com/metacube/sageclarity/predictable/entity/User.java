@@ -3,6 +3,7 @@ package com.metacube.sageclarity.predictable.entity;
 import com.metacube.sageclarity.predictable.enums.UserRoleEnum;
 import com.metacube.sageclarity.predictable.vo.RoleVO;
 import com.metacube.sageclarity.predictable.vo.UserVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -67,6 +68,28 @@ public class User extends BaseEntity implements Serializable{
 		this.enabled = userVO.getEnabled();
 		this.emailId = userVO.getEmail();
 		if(userVO.getRoles()!=null){
+			for(RoleVO role:userVO.getRoles()){
+				this.roles.add(new Role(role));
+			}
+
+		}
+		if(userVO.getCompanyVO() != null){
+			this.setCompany(new Company(userVO.getCompanyVO()));
+		}
+	}
+
+	public User(UserVO userVO,User user){
+		BeanUtils.copyProperties(user,this);
+		if(userVO.getId()!=null){
+			super.setId(userVO.getId());
+		}
+		this.name = userVO.getFirstName();
+		this.lastName = userVO.getLastName();
+		this.username = userVO.getUserName();
+		this.enabled = userVO.getEnabled();
+		this.emailId = userVO.getEmail();
+		if(userVO.getRoles()!=null){
+			this.roles.clear();
 			for(RoleVO role:userVO.getRoles()){
 				this.roles.add(new Role(role));
 			}

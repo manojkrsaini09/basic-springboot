@@ -1,6 +1,7 @@
 package com.metacube.sageclarity.predictable.entity;
 
 import com.metacube.sageclarity.predictable.vo.CompanyVO;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,16 @@ public class Company extends BaseEntity implements Serializable {
     }
 
     public Company(CompanyVO companyVO) {
+        if(companyVO.getId()!=null){
+            super.setId(companyVO.getId());
+        }
+
+        this.name = companyVO.getName();
+        this.location = companyVO.getLocation();
+    }
+
+    public Company(CompanyVO companyVO,Company company) {
+        BeanUtils.copyProperties(company,this);
         if(companyVO.getId()!=null){
             super.setId(companyVO.getId());
         }
