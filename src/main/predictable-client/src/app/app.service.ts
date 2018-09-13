@@ -3,11 +3,12 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Router } from '@angular/router';
 import { throwError, Observable} from 'rxjs';
 import { tap , catchError , finalize } from 'rxjs/operators';
+import { User } from './Models/user-model';
 
 @Injectable()
 export class AppService {
   authenticated = false;
-  loggedInUserInfo = {};
+  loggedInUserInfo: User;
   errorMessage = '';
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -24,6 +25,8 @@ export class AppService {
                     this.authenticated = response['data'].authenticated;
                     this.loggedInUserInfo = response['data'].userVO;
                     this.errorMessage = response['data'].errorMessage;
+                    console.log('this.loggedInUserInfo');
+                    console.log( this.loggedInUserInfo);
                 } else {
                     this.authenticated = false;
                     this.errorMessage = response['data'].errorMessage;

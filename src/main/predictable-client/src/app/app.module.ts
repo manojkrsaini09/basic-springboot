@@ -38,6 +38,7 @@ import { AuthInterceptor } from './HttpInterceptor/auth.interceptor';
 import { OrganizationComponent } from './OrganizationComponent/organization.component';
 import { OrganizationService } from './OrganizationComponent/organization.service';
 import {ProductsComponent} from './ConfigurationComponent/Product/product.component'
+import { UserInfoProvider } from './Services/preload.service';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -50,9 +51,10 @@ export class XhrInterceptor implements HttpInterceptor {
   }
 }
 
-// export function init_app(provider: UserService) {
-//   return () => provider.getLoggedInUserInfo;
+// export function init_app(provider: UserInfoProvider) {
+//    return () => provider.load;
 // }
+
 const appRoutes: Routes = [
   {path: 'login' , component : LoginComponent},
   {path: 'dashboard',
@@ -133,10 +135,11 @@ const appRoutes: Routes = [
     FormsModule,
     AngularFontAwesomeModule
   ],
-  providers: [AppService, UserService, RoleService, OrganizationService, ProductService,CompanyService,   
+  providers: [AppService, UserService, RoleService, OrganizationService, ProductService , CompanyService,
+    UserInfoProvider,
     { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    // { provide: APP_INITIALIZER, useFactory: init_app, deps: [UserService], multi: true }
+  //  { provide: APP_INITIALIZER, useFactory: init_app, deps: [UserInfoProvider], multi: true }
   ],
   bootstrap: [AppComponent]
 })
