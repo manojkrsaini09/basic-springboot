@@ -26,6 +26,9 @@ public class Company extends BaseEntity implements Serializable {
         this.location = companyVO.getLocation();
     }
 
+    public Company(Long id){
+        super.setId(id);
+    }
     public String getName() {
         return name;
     }

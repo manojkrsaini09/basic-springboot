@@ -26,7 +26,12 @@ public class Product extends  BaseEntity implements Serializable {
         }
         this.name = productVO.getName();
         this.attributes = productVO.getAttributes();
-        this.company = new Company(productVO.getCompanyVO());
+        if(productVO.getCompanyVO()!=null){
+            this.company = new Company(productVO.getCompanyVO());
+        }else if(productVO.getCompanyId()!=null){
+            this.company = new Company(productVO.getCompanyId());
+        }
+
     }
 
     public String getName() {

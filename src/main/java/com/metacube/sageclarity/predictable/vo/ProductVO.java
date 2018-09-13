@@ -8,6 +8,7 @@ public class ProductVO {
     private String name;
     private String  attributes;
     private CompanyVO companyVO;
+    private Long companyId;
     public ProductVO() {
     }
 
@@ -19,7 +20,9 @@ public class ProductVO {
         this.attributes = product.getAttributes();
         if(product.getCompany()!= null){
             this.companyVO = new CompanyVO(product.getCompany());
+            this.companyId = product.getCompany().getId();
         }
+
     }
 
     public Long getId() {
@@ -52,5 +55,13 @@ public class ProductVO {
 
     public void setCompanyVO(CompanyVO companyVO) {
         this.companyVO = companyVO;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 }
