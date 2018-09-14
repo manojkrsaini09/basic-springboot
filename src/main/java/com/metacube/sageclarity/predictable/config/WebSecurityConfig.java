@@ -1,17 +1,26 @@
 package com.metacube.sageclarity.predictable.config;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.metacube.sageclarity.predictable.controller.CompanyController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -23,11 +32,14 @@ import com.metacube.sageclarity.predictable.config.handler.CustomLogoutSuccessfu
 import com.metacube.sageclarity.predictable.service.securityhelpers.CustomeUserDetailService;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
+import java.io.IOException;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+  private static final Logger logger = LoggerFactory.getLogger(CompanyController.class);
+  private static final ObjectMapper objectMapper = new ObjectMapper();
 
   @Autowired
   private CustomLoginSuccessfulHandler loginSuccessfulHandler;
@@ -128,11 +140,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   // @formatter:on
   }
-  
-  
+
   @Bean
   public PasswordEncoder passwordEncoder() {
-      return new BCryptPasswordEncoder();
+    return new BCryptPasswordEncoder();
   }
+  
+  /*
+
+
+  private void loginSuccessHandler(
+          HttpServletRequest request,
+          HttpServletResponse response,
+          Authentication authentication) throws IOException {
+
+    response.setStatus(HttpStatus.OK.value());
+    objectMapper.writeValue(response.getWriter(), "Yayy you logged in!");
+  }
+
+  private void loginFailureHandler(
+          HttpServletRequest request,
+          HttpServletResponse response,
+          AuthenticationException e) throws IOException {
+
+    response.setStatus(HttpStatus.UNAUTHORIZED.value());
+    objectMapper.writeValue(response.getWriter(), "Nopity nop!");
+  }
+
+  private void logoutSuccessHandler(
+          HttpServletRequest request,
+          HttpServletResponse response,
+          Authentication authentication) throws IOException {
+
+    response.setStatus(HttpStatus.OK.value());
+    objectMapper.writeValue(response.getWriter(), "Bye!");
+  }*/
   
 }

@@ -13,8 +13,11 @@ import com.metacube.sageclarity.predictable.vo.ResponseObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
@@ -45,6 +48,7 @@ public class CompanyController {
         }
     }
 
+    @Secured({ "ROLE_Admin", "ROLE_ADMIN" , "Admin" , "ADMIN" , "admin"})
     @RequestMapping(value = "/company/all", produces = "application/json",method = RequestMethod.GET)
     public
     @ResponseBody
