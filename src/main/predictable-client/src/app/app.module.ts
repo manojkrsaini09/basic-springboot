@@ -9,7 +9,6 @@ import { Injectable } from '@angular/core';
 import { LoginComponent } from './LoginComponent/login.component';
 
 import {SummaryPanelComponent} from './summary/summaryPanel.component';
-import {BottomToolbarComponent} from './Dashboard/bottombar.component';
 import {MainPanelComponent} from './Dashboard/mainpanel.component';
 import {RightPanelComponent} from './Dashboard/rightpanel.component';
 import {TitleBarComponent} from './Dashboard/titlebar.component';
@@ -131,7 +130,6 @@ const appRoutes: Routes = [
     LoginComponent,
     DashboardComponent,
     SummaryPanelComponent,
-    BottomToolbarComponent,
     MainPanelComponent,
     RightPanelComponent,
     TitleBarComponent,
