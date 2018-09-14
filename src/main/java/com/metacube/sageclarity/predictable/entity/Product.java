@@ -2,12 +2,14 @@ package com.metacube.sageclarity.predictable.entity;
 
 import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.metacube.sageclarity.predictable.vo.ProductVO;
+import org.hibernate.annotations.Where;
 import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity(name = "Product")
+@Where(clause = "isDeleted='false'")
 public class Product extends  BaseEntity implements Serializable {
     @Column
     private String name;
@@ -18,6 +20,10 @@ public class Product extends  BaseEntity implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     private Company company;
+
+    @Column
+    private Boolean isDeleted;
+
 
     public Product() {
     }
@@ -73,5 +79,13 @@ public class Product extends  BaseEntity implements Serializable {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 }

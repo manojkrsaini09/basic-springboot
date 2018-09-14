@@ -13,6 +13,7 @@ import com.metacube.sageclarity.predictable.service.ProductService;
 import com.metacube.sageclarity.predictable.vo.CompanyVO;
 import com.metacube.sageclarity.predictable.vo.ProductVO;
 import com.metacube.sageclarity.predictable.vo.ResponseObject;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,10 +79,18 @@ public class ProductController {
     @RequestMapping(value = "/product/all", produces = "application/json",method = RequestMethod.GET)
     public
     @ResponseBody
-    ResponseObject getAllProducts(){
+    ResponseObject getAllProducts(@RequestParam(value = "companyId") String  companyIdStr){
+        Long companyId = null;
+        if(StringUtils.isNotBlank(companyIdStr)){
+            companyId = Long.parseLong(companyIdStr);
+        }
         try {
             List<Product> products = null;
-            products = productService.getAll();
+            if(companyId!=null){
+                products = productService.getAllByCompanyId(companyId);
+            }else{
+                products = productService.getAll();
+            }
             return ResponseObject.getResponse(ResponseHelper.getProductVOList(products));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -103,6 +112,31 @@ public class ProductController {
                         , ExceptionType.NO_DATA_FOUND.getCode());
             }
             return ResponseObject.getResponse(new ProductVO(entity));
+        }catch (InvalidParamException e) {
+            logger.error(e.getMessage(), e);
+            return ResponseObject.getResponse(ExceptionType.INVALID_METHOD_PARAM.getMessage()
+                    , ExceptionType.INVALID_METHOD_PARAM.getCode());
+        } catch (ApplicationLevelException e) {
+            logger.error(e.getMessage(), e);
+            return ResponseObject.getResponse(ExceptionType.GENERAL_ERROR.getMessage()
+                    , ExceptionType.GENERAL_ERROR.getCode());
+        }
+    }
+
+    @RequestMapping(value = "/product/delete" , method = RequestMethod.GET, produces = "application/json")
+    public
+    @ResponseBody
+    ResponseObject deleteProduct(@RequestParam(value = "id", required = true) String idStr) {
+        Long entityId = Long.parseLong(idStr);
+        try {
+            Product entity = productService.getById(entityId);
+            if(entity == null){
+                logger.error("No Product found for id: " + entityId);
+                return ResponseObject.getResponse(ExceptionType.NO_DATA_FOUND.getMessage()
+                        , ExceptionType.NO_DATA_FOUND.getCode());
+            }
+            productService.deleteProduct(entity);
+            return ResponseObject.getResponse(true);
         }catch (InvalidParamException e) {
             logger.error(e.getMessage(), e);
             return ResponseObject.getResponse(ExceptionType.INVALID_METHOD_PARAM.getMessage()

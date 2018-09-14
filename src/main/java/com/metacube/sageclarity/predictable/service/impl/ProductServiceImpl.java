@@ -67,4 +67,33 @@ public class ProductServiceImpl implements ProductService {
             throw new ApplicationLevelException(message, e);
         }
     }
+
+    @Override
+    public Boolean deleteProduct(Product product) throws ApplicationLevelException {
+        if(product == null){
+            String message= "Null object";
+            logger.error(message);
+            throw new InvalidParamException(message);
+        }
+        try{
+            product.setDeleted(true);
+            product = productDao.save(product);
+            return true;
+        }catch (Exception e){
+            String message = "Db exception while deleting product with id "+ product.getId() + ". " + e.getMessage();
+            logger.error(message, e);
+            throw new ApplicationLevelException(message, e);
+        }
+    }
+
+    @Override
+    public List<Product> getAllByCompanyId(Long companyId) throws ApplicationLevelException {
+        try{
+            return productDao.getByCompany(new Company(companyId));
+        }catch(Exception e) {
+            String message = "Db exception while fetching  product for company id " + companyId + ". " + e.getMessage();
+            logger.error(message, e);
+            throw new ApplicationLevelException(message, e);
+        }
+    }
 }
