@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity(name = "Product")
-@Where(clause = "isDeleted='false'")
+@Where(clause = "is_deleted ='false'")
 public class Product extends  BaseEntity implements Serializable {
     @Column
     private String name;
