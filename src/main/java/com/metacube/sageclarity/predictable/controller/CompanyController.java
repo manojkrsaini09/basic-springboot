@@ -89,19 +89,20 @@ public class CompanyController {
             ,method = RequestMethod.POST)
     public
     @ResponseBody
-    ResponseObject updateProduct(@RequestBody String companyStr, @RequestParam(value = "id") String companyIdStr){
-        if(RequestHelper.isEmptyRequestString(companyStr) || RequestHelper.isEmptyRequestString(companyIdStr))
+    ResponseObject updateProduct(@RequestBody String companyStr){
+        if(RequestHelper.isEmptyRequestString(companyStr))
             return (ResponseObject.getResponse(ExceptionType.INVALID_METHOD_PARAM.getMessage()
                     , ExceptionType.INVALID_METHOD_PARAM.getCode()));
         try {
-            Long companyId = Long.valueOf(companyIdStr);
+            CompanyVO companyVO = mapper.readValue(companyStr,CompanyVO.class);
+            Long companyId = companyVO.getId();
             Company company = companyService.getById(companyId);
             if(company == null){
                 logger.error("No company found for id: " + companyId);
                 return ResponseObject.getResponse(ExceptionType.NO_DATA_FOUND.getMessage()
                         , ExceptionType.NO_DATA_FOUND.getCode());
             }
-            CompanyVO companyVO = mapper.readValue(companyStr,CompanyVO.class);
+
             company = new Company(companyVO,company);
             company = companyService.save(company);
             return ResponseObject.getResponse(new CompanyVO(company));

@@ -101,19 +101,20 @@ public class UserController {
             ,method = RequestMethod.POST)
     public
     @ResponseBody
-    ResponseObject updateProduct(@RequestBody String userStr, @RequestParam(value = "id") String userIdStr){
-        if(RequestHelper.isEmptyRequestString(userStr) || RequestHelper.isEmptyRequestString(userIdStr))
+    ResponseObject updateProduct(@RequestBody String userStr){
+        if(RequestHelper.isEmptyRequestString(userStr))
             return (ResponseObject.getResponse(ExceptionType.INVALID_METHOD_PARAM.getMessage()
                     , ExceptionType.INVALID_METHOD_PARAM.getCode()));
         try {
-            Long userId = Long.valueOf(userIdStr);
+            UserVO userVO = mapper.readValue(userStr,UserVO.class);
+            Long userId = userVO.getId();
             User user = userService.getById(userId);
             if(user == null){
                 logger.error("No user found for id: " + userId);
                 return ResponseObject.getResponse(ExceptionType.NO_DATA_FOUND.getMessage()
                         , ExceptionType.NO_DATA_FOUND.getCode());
             }
-            UserVO userVO = mapper.readValue(userStr,UserVO.class);
+
             user = new User(userVO,user);
             user = userService.saveUser(user);
             return ResponseObject.getResponse(new UserVO(user));

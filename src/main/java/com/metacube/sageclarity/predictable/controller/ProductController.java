@@ -53,19 +53,20 @@ public class ProductController {
             ,method = RequestMethod.POST)
     public
     @ResponseBody
-    ResponseObject updateProduct(@RequestBody String productStr, @RequestParam(value = "id") String productIdStr){
-        if(RequestHelper.isEmptyRequestString(productStr) || RequestHelper.isEmptyRequestString(productIdStr))
+    ResponseObject updateProduct(@RequestBody String productStr){
+        if(RequestHelper.isEmptyRequestString(productStr))
             return (ResponseObject.getResponse(ExceptionType.INVALID_METHOD_PARAM.getMessage()
                     , ExceptionType.INVALID_METHOD_PARAM.getCode()));
         try {
-            Long productId = Long.valueOf(productIdStr);
+            ProductVO productVO = mapper.readValue(productStr,ProductVO.class);
+            Long productId = productVO.getId();
             Product product = productService.getById(productId);
             if(product == null){
                 logger.error("No Product found for id: " + productId);
                 return ResponseObject.getResponse(ExceptionType.NO_DATA_FOUND.getMessage()
                         , ExceptionType.NO_DATA_FOUND.getCode());
             }
-            ProductVO productVO = mapper.readValue(productStr,ProductVO.class);
+
              product = new Product(productVO,product);
             product = productService.save(product);
             return ResponseObject.getResponse(new ProductVO(product));
