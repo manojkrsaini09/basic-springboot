@@ -43,7 +43,7 @@ export class AuthInterceptor implements HttpInterceptor {
                   if ( error instanceof HttpErrorResponse) {
                       console.log('error status>>>');
                       console.log(error.status);
-                    if ( error.status === 403) {
+                    if ( error.status === 401) {
                         console.log('matched');
                         this.route.navigate(['/login']);
                     }

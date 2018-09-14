@@ -18,7 +18,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
   @Override
   public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
       throws IOException, ServletException {
-    response.sendError(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.toString());
+    response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.FORBIDDEN.toString());
   }
 
 }

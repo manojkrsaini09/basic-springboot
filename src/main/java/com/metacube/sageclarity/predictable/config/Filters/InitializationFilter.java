@@ -7,14 +7,18 @@ import com.metacube.sageclarity.predictable.exception.ApplicationLevelException;
 import com.metacube.sageclarity.predictable.service.UserService;
 import com.metacube.sageclarity.predictable.vo.ResponseObject;
 import com.metacube.sageclarity.predictable.vo.UserVO;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
 
@@ -36,6 +40,7 @@ public class InitializationFilter implements Filter {
             throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) servletRequest;
+        HttpServletResponse res = (HttpServletResponse) servletResponse;
         Principal principal = req.getUserPrincipal();
         if(req.getSession().getAttribute("user") == null && principal!=null){
             User user = null;

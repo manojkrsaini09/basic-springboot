@@ -26,7 +26,7 @@ export class ProductService{
         //     {id:12,name:"Product 12", companyId:4,companyVO:null},
         // ];
 
-        return this.http.get<IProduct[]>('product/all?companyId=1');
+        return this.http.get<IProduct[]>('product/all?companyId=50');
     }
 
     saveProduct(product:IProduct):boolean{

@@ -48,7 +48,7 @@ public class CompanyController {
         }
     }
 
-    @Secured({ "ROLE_Admin", "ROLE_ADMIN" , "Admin" , "ADMIN" , "admin"})
+   // @PreAuthorize("hasRole('ROLE_Admin')")
     @RequestMapping(value = "/company/all", produces = "application/json",method = RequestMethod.GET)
     public
     @ResponseBody
