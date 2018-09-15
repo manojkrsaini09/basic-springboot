@@ -36,7 +36,9 @@ import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true, securedEnabled = true, jsr250Enabled = true
+)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private static final Logger logger = LoggerFactory.getLogger(CompanyController.class);
   private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -127,6 +129,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                   /*  "/polyfills.js", "/styles.js" , "/main.js", "/vendor.js" , "/runtime.js",*/
                     "/**.js",
                     "/logout",  "/**.png","/**.jpeg","/resources/**","/assets/**").permitAll()
+            .antMatchers("/company/**").permitAll()
             .anyRequest().authenticated()
             .and().exceptionHandling().accessDeniedHandler(customAccessDeniedHandler)
             .authenticationEntryPoint(customAuthenticationEntryPoint).and()

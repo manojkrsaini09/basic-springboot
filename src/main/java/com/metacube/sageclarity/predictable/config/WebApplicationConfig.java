@@ -23,6 +23,8 @@ public WebServerFactoryCustomizer<TomcatServletWebServerFactory> containerCustom
                 "/notFound"));
         container.addErrorPages(new ErrorPage(HttpStatus.FORBIDDEN,
                 "/notFound"));
+        container.addErrorPages(new ErrorPage(HttpStatus.UNAUTHORIZED,
+                "/notFound"));
     };
   }
 

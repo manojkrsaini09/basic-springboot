@@ -22,7 +22,7 @@ public class Product extends  BaseEntity implements Serializable {
     private Company company;
 
     @Column
-    private Boolean isDeleted;
+    private Boolean isDeleted=false;
 
 
     public Product() {
