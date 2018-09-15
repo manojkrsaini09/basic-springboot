@@ -8,17 +8,10 @@ import "rxjs/add/operator/map"
 
 @Injectable()
 export class ProductService{
-    errorMessage: string;
-
     constructor(private http: HttpClient) {}
 
     getProducts(orgnizationId: number): Observable<IProduct[]>{
-        if(orgnizationId > 0){
-            return this.http.get<IProduct[]>('product/all?companyId='+orgnizationId);
-        }
-        else{
-            return this.http.get<IProduct[]>('product/all?companyId=');
-        }
+        return this.http.get<IProduct[]>('product/all?companyId='+orgnizationId);
     }
 
     saveProduct(product:IProduct):Observable<IProduct>{

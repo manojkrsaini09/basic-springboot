@@ -15,7 +15,7 @@ export class ProductsComponent{
     editableMode = false;
     selectedProduct: IProduct;
     isSuperAdmin:boolean=false;
-    userOrgnizationId:number = 0;
+    userOrgnizationId:number = 50;
 
     constructor(private productService: ProductService, private companyService: CompanyService, private appService:AppService,
                 private messageService: MessageService) {}
@@ -38,9 +38,12 @@ export class ProductsComponent{
     }
 
     getProducts(): void {
-        this.productService.getProducts()
+        this.productService.getProducts(this.userOrgnizationId)
                 .subscribe(products => {
-                    this.products = products;
+                    this.products = products['data'];
+                },
+                err => {
+                    this.messageService.add({severity:'error', summary: 'Error', detail:'Someting went wrong. Please try later'});
                 });
     }
 
@@ -55,18 +58,29 @@ export class ProductsComponent{
         }
         
         if(this.selectedProduct.id > 0){
-            this.productService.updateProduct(this.selectedProduct);
-            this.messageService.add({severity:'info', summary: 'Success', detail:'Updated Successfully'});
+            this.productService.updateProduct(this.selectedProduct).subscribe(product => {
+                this.selectedProduct = {} as IProduct;
+                this.editableMode = false;
+
+                this.getProducts();
+                this.messageService.add({severity:'info', summary: 'Success', detail:'Updated Successfully'});
+            },
+            err => {
+                this.messageService.add({severity:'error', summary: 'Error', detail:'Someting went wrong. Please try later'});
+            });
         }
         else{
-            this.productService.saveProduct(this.selectedProduct);
-            this.messageService.add({severity:'info', summary: 'Success', detail:'Saved Successfully'});
-        }
-        
-        this.selectedProduct = {} as IProduct;
-        this.editableMode = false;
+            this.productService.saveProduct(this.selectedProduct).subscribe(product => {
+                this.selectedProduct = {} as IProduct;
+                this.editableMode = false;
 
-        this.getProducts();
+                this.getProducts();
+                this.messageService.add({severity:'info', summary: 'Success', detail:'Saved Successfully'});
+            },
+            err => {
+                this.messageService.add({severity:'error', summary: 'Error', detail:'Someting went wrong. Please try later'});
+            });
+        }
     }
 
     editProduct(product: IProduct):void{
@@ -80,9 +94,14 @@ export class ProductsComponent{
     }
 
     deleteProduct(id:number):void{
-        this.productService.deleteProduct(id);
-        this.messageService.add({severity:'info', summary: 'Success', detail:'Deleted Successfully'});
-        this.editableMode = false;
-        this.getProducts();
+        this.productService.deleteProduct(id).subscribe(product => {
+            this.messageService.add({severity:'info', summary: 'Success', detail:'Deleted Successfully'});
+            this.editableMode = false;
+            this.getProducts();
+        },
+        err => {
+            this.messageService.add({severity:'error', summary: 'Error', detail:'Someting went wrong. Please try later'});
+        });
+        
     }
 }
