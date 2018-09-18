@@ -7,8 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.io.Serializable;
 
-@Entity(name = "company")
-public class Company extends BaseEntity implements Serializable {
+@Entity(name = "Organization")
+public class Company extends BaseEntity<String> implements Serializable {
     @Column
     private String name;
 

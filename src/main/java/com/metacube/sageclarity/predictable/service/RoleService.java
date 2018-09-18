@@ -9,4 +9,5 @@ import java.util.List;
 public interface RoleService {
 	public Role saveRole(Role role) throws ApplicationLevelException;
 	public List<Role> getAllRole() throws ApplicationLevelException;
+	public List<Role> saveRoles(List<Role> roles) throws ApplicationLevelException;
 }

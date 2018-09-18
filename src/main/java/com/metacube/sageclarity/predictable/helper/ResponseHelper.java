@@ -59,4 +59,12 @@ public class ResponseHelper {
 		}
 		return productsVOs;
 	}
+
+	public static  List<ProductionScheduleMasterVO> getScheduleVOList(List<ProductionScheduleMaster> schedules){
+		List<ProductionScheduleMasterVO> scheduleVOs = new ArrayList<>();
+		for(ProductionScheduleMaster schedule : schedules){
+			scheduleVOs.add(new ProductionScheduleMasterVO(schedule));
+		}
+		return scheduleVOs;
+	}
 }

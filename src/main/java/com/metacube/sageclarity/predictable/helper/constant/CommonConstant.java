@@ -5,4 +5,5 @@ public class CommonConstant {
     public static final Object RESPONSE_PLACEHOLDER_OBJECT = null;
     public static final Boolean FALSE = false;
     public static final Boolean TRUE = true;
+    public static final String DUMMY_AUDITOR_NAME = "Dummy";
 }

@@ -30,4 +30,9 @@ public class RoleDaoImpl implements RoleDao{
 		return jpaRoleDao.getOne(id);
 	}
 
+	@Override
+	public List<Role> saveUserRoles(List<Role> roles) {
+		return jpaRoleDao.saveAll(roles);
+	}
+
 }

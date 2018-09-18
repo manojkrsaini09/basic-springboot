@@ -12,7 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "role")
-public class Role extends BaseEntity implements GrantedAuthority, Serializable{
+public class Role extends BaseEntity<String> implements GrantedAuthority, Serializable{
 
 	@Column
 	@Enumerated(EnumType.STRING)

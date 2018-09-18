@@ -16,7 +16,7 @@ import javax.persistence.*;
 
 
 @Entity(name = "user")
-public class User extends BaseEntity implements Serializable{
+public class User extends BaseEntity<String> implements Serializable{
 
 	@Column
 	private String name;
@@ -37,7 +37,7 @@ public class User extends BaseEntity implements Serializable{
     private String emailId;
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "company_id", referencedColumnName = "id")
+	@JoinColumn(name = "org_id", referencedColumnName = "id")
 	private Company company;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -46,6 +46,10 @@ public class User extends BaseEntity implements Serializable{
 	private List<Role> roles = new ArrayList<>();
 
 	public User() {}
+
+	public User(Long id) {
+		super.setId(id);
+	}
 
 	public User(String name, String userName, String password, boolean enabled) {
 		super();

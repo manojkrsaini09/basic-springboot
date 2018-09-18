@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.metacube.sageclarity.predictable.enums.UserRoleEnum;
 import com.metacube.sageclarity.predictable.helper.ResponseHelper;
+import com.metacube.sageclarity.predictable.service.RoleService;
 import com.metacube.sageclarity.predictable.vo.ResponseObject;
 import com.metacube.sageclarity.predictable.vo.UserLoginVO;
 import com.metacube.sageclarity.predictable.vo.UserVO;
@@ -42,35 +43,34 @@ public class MainController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private RoleService roleService;
+
 	/*@RequestMapping(value = "/", method = RequestMethod.GET)
 	public void home(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		res.sendRedirect("/predictable/index.html");
 	}
 */
-	@PostConstruct
+	/*@PostConstruct
 	public void init() {
 
 		try {
-			/*User user = new User("User", "user", passwordEncoder.encode("password"), true);
-			List<Role> roles1 = new ArrayList<>();
-			roles1.add(new Role(null,UserRoleEnum.USER));
-			user.setRoles(roles1);
-			userService.saveUser(user);
-			User admin = new User("Admin", "admin", passwordEncoder.encode("password"), true);
-			List<Role> roles2 = new ArrayList<>();
-			roles2.add(new Role( null,UserRoleEnum.ADMIN));
-			admin.setRoles(roles2);
-			userService.saveUser(admin);*/
-			User superuser = new User("SuperUser", "superuser", passwordEncoder.encode("password"), true);
-			List<Role> roles3 = new ArrayList<>();
-			roles3.add(new Role(null,UserRoleEnum.SUPER_ADMIN));
-			superuser.setRoles(roles3);
+			List<Role> roleList = new ArrayList<>();
+			roleList.add(new Role(null,UserRoleEnum.USER));
+			roleList.add(new Role(null,UserRoleEnum.ADMIN));
+			//roleList.add(new Role(null,UserRoleEnum.SUPER_ADMIN));
+
+			User superuser = new User("SuperUser", "superuser", passwordEncoder.encode("super"), true);
+			List<Role> superAdminRoles = new ArrayList<>();
+			superAdminRoles.add(new Role(null,UserRoleEnum.SUPER_ADMIN));
+			superuser.setRoles(superAdminRoles);
 			userService.saveUser(superuser);
+			roleService.saveRoles(roleList);
 		} catch (ApplicationLevelException e) {
 			e.printStackTrace();
 		}
 
-	}
+	}*/
 	
 	@RequestMapping("/resource")
 	  public Map<String,Object> home() {

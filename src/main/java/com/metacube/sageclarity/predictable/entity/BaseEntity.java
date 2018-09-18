@@ -2,25 +2,38 @@ package com.metacube.sageclarity.predictable.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
-public class BaseEntity {
+@EntityListeners(AuditingEntityListener.class)
+public class BaseEntity<U> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@UpdateTimestamp
+	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_date")
 	private Date updatedDate;
 
-	@CreationTimestamp
+	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created_date")
+	@Column(name = "created_date", updatable = false, nullable = false)
 	private Date createdDate;
+
+	@CreatedBy
+	@Column(name = "created_by", updatable = false, nullable = false)
+	protected U createdBy;
+
+	@LastModifiedBy
+	protected U lastModifiedBy;
 
 	protected BaseEntity(){}
 
@@ -50,5 +63,21 @@ public class BaseEntity {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	public U getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(U createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public U getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
+	public void setLastModifiedBy(U lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
 	}
 }

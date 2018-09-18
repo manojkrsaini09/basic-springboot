@@ -52,4 +52,20 @@ public class RoleServiceImpl implements RoleService {
 		}
 	}
 
+	@Override
+	public List<Role> saveRoles(List<Role> roles) throws ApplicationLevelException {
+		if(roles == null){
+			String message = "Null Role List to create.";
+			logger.error(message);
+			throw new InvalidParamException(message);
+		}
+		try {
+			return roleDao.saveUserRoles(roles);
+		}catch (Exception e){
+			String message = "Db exception while creating Roles. "+ e.getMessage() ;
+			logger.error(message, e);
+			throw new ApplicationLevelException(message, e);
+		}
+	}
+
 }

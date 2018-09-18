@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @Entity(name = "Product")
 @Where(clause = "is_deleted ='false'")
-public class Product extends  BaseEntity implements Serializable {
+public class Product extends  BaseEntity<String> implements Serializable {
     @Column
     private String name;
 
@@ -18,7 +18,7 @@ public class Product extends  BaseEntity implements Serializable {
     private String attributes;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @JoinColumn(name = "org_id", referencedColumnName = "id")
     private Company company;
 
     @Column
