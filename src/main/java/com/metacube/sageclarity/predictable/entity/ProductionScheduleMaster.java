@@ -25,7 +25,7 @@ public class ProductionScheduleMaster extends BaseEntity<String>{
     @Column
     private Boolean isActive=true;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
