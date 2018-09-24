@@ -6,6 +6,7 @@ public class CompanyVO {
     private Long id;
     private String name;
     private String  location;
+    private Boolean isActive;
     public CompanyVO() {
     }
 
@@ -13,6 +14,7 @@ public class CompanyVO {
         if(company.getId()!=null){
             this.id = company.getId();
         }
+        this.isActive = company.getActive();
         this.name = company.getName();
         this.location = company.getLocation();
     }
@@ -39,5 +41,13 @@ public class CompanyVO {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 }

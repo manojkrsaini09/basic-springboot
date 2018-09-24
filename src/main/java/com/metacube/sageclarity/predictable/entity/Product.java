@@ -24,6 +24,8 @@ public class Product extends  BaseEntity<String> implements Serializable {
     @Column
     private Boolean isDeleted=false;
 
+    @Column
+    private Boolean isActive;
 
     public Product() {
     }
@@ -32,6 +34,7 @@ public class Product extends  BaseEntity<String> implements Serializable {
         if(productVO.getId()!=null){
             super.setId(productVO.getId());
         }
+        this.isActive = productVO.getActive();
         this.name = productVO.getName();
         this.attributes = productVO.getAttributes();
         if(productVO.getCompanyVO()!=null){
@@ -48,6 +51,7 @@ public class Product extends  BaseEntity<String> implements Serializable {
             super.setId(productVO.getId());
         }
         this.name = productVO.getName();
+        this.isActive = productVO.getActive();
         this.attributes = productVO.getAttributes();
         if(productVO.getCompanyVO()!=null){
             this.company = new Company(productVO.getCompanyVO());
@@ -87,5 +91,13 @@ public class Product extends  BaseEntity<String> implements Serializable {
 
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 }

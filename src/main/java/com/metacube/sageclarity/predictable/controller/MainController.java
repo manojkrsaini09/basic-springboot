@@ -104,4 +104,8 @@ public class MainController {
 	public String redirect() {
 		return "forward:/";
 	}*/
+	@GetMapping(value = "/noauth/sample")
+	public ResponseObject getSampleResponse(){
+		return ResponseObject.getResponse("success");
+	}
 }

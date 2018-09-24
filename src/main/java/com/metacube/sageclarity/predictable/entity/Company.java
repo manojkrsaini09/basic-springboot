@@ -15,6 +15,9 @@ public class Company extends BaseEntity<String> implements Serializable {
     @Column
     private String location;
 
+    @Column
+    private Boolean isActive=true;
+
     public Company() {
     }
 
@@ -22,7 +25,7 @@ public class Company extends BaseEntity<String> implements Serializable {
         if(companyVO.getId()!=null){
             super.setId(companyVO.getId());
         }
-
+        this.isActive = companyVO.getActive();
         this.name = companyVO.getName();
         this.location = companyVO.getLocation();
     }
@@ -32,7 +35,7 @@ public class Company extends BaseEntity<String> implements Serializable {
         if(companyVO.getId()!=null){
             super.setId(companyVO.getId());
         }
-
+        this.isActive = companyVO.getActive();
         this.name = companyVO.getName();
         this.location = companyVO.getLocation();
     }
@@ -54,5 +57,13 @@ public class Company extends BaseEntity<String> implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 }

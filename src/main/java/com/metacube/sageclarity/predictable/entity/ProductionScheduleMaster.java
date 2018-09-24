@@ -5,10 +5,14 @@ import com.metacube.sageclarity.predictable.vo.ProductionScheduleMasterVO;
 import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class ProductionScheduleMaster extends BaseEntity<String>{
+    @Column
     private String name;
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -30,7 +34,15 @@ public class ProductionScheduleMaster extends BaseEntity<String>{
     private User user;
 
     @Column(name = "date")
-    private Date date;
+    private LocalDateTime date;
+
+    @Column
+    @OneToMany(
+            mappedBy = "scheduleMaster",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+          )
+    private List<ProductionScheduleData> scheduleData = new ArrayList<>();
 
     public ProductionScheduleMaster() {
     }
@@ -123,11 +135,19 @@ public class ProductionScheduleMaster extends BaseEntity<String>{
         this.user = user;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public List<ProductionScheduleData> getScheduleData() {
+        return scheduleData;
+    }
+
+    public void setScheduleData(List<ProductionScheduleData> scheduleData) {
+        this.scheduleData = scheduleData;
     }
 }

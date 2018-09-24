@@ -9,6 +9,7 @@ public class ProductVO {
     private String  attributes;
     private CompanyVO companyVO;
     private Long companyId;
+    private Boolean isActive;
     public ProductVO() {
     }
 
@@ -16,6 +17,7 @@ public class ProductVO {
         if(product.getId()!=null){
             this.id = product.getId();
         }
+        this.isActive = product.getActive();
         this.name = product.getName();
         this.attributes = product.getAttributes();
         if(product.getCompany()!= null){
@@ -63,5 +65,13 @@ public class ProductVO {
 
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 }

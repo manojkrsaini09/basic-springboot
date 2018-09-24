@@ -128,7 +128,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/index.html", "/", "/login" ,"/userInfo",
                   /*  "/polyfills.js", "/styles.js" , "/main.js", "/vendor.js" , "/runtime.js",*/
                     "/**.js",
-                    "/logout",  "/**.png","/**.jpeg","/resources/**","/assets/**").permitAll()
+                    "/logout",  "/**.png","/**.jpeg","/resources/**","/assets/**","/noauth/sample").permitAll()
             .antMatchers("/company/**").permitAll()
             .anyRequest().authenticated()
             .and().exceptionHandling().accessDeniedHandler(customAccessDeniedHandler)
